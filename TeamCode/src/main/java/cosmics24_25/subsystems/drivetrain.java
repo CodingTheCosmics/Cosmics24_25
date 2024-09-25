@@ -1,0 +1,157 @@
+package cosmics24_25.subsystems;
+
+import static android.os.SystemClock.sleep;
+
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IMU;
+
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+
+public class drivetrain {
+
+    public DcMotorEx backRight;
+    public DcMotorEx frontRight;
+    public DcMotorEx backLeft;
+    public DcMotorEx frontLeft;
+    public IMU imu;
+
+
+    public drivetrain(HardwareMap hardwareMap) {
+
+
+
+        backRight = (DcMotorEx) hardwareMap.dcMotor.get("RB");
+        frontRight = (DcMotorEx) hardwareMap.dcMotor.get("RF");
+        backLeft = (DcMotorEx) hardwareMap.dcMotor.get("LB");
+        frontLeft = (DcMotorEx) hardwareMap.dcMotor.get("LF");
+
+        //
+        imu = hardwareMap.get(IMU.class, "imu");
+        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+                RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
+                RevHubOrientationOnRobot.UsbFacingDirection.UP
+        ));
+
+        imu.initialize(parameters);
+
+    }
+
+
+
+
+
+//teleop movement for mecanum drivetrain
+  public void move(float x, float y, float rx, boolean reset, boolean slowMode) {
+
+      //reset button
+      if (reset) {
+          imu.resetYaw();
+      }
+
+      //unit definitions
+      double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+
+      //key algorithm to translate into field coordinates
+      double rotX = y * Math.cos(-botHeading) - x * Math.sin(-botHeading);
+      double rotY = y * Math.sin(-botHeading) + x * Math.cos(-botHeading);
+
+
+      //decrease power
+      double reductionFactor = 0.6;
+
+      double slowModeFactor = 0.25;
+
+
+      //actual power
+      frontRight.setPower((rotY + rotX + rx) * reductionFactor);
+      backRight.setPower((rotY - rotX + rx) * reductionFactor);
+      frontLeft.setPower((rotY + rotX - rx) * reductionFactor);
+      backLeft.setPower((rotY + rotX - rx) * reductionFactor);
+
+      //slow mode
+      if (slowMode) {
+
+          //actual power
+          frontRight.setPower((rotY + rotX + rx) * slowModeFactor);
+          backRight.setPower((rotY - rotX + rx) * slowModeFactor);
+          frontLeft.setPower((rotY - rotX - rx) * slowModeFactor);
+          backLeft.setPower((rotY + rotX - rx) * slowModeFactor);
+
+      }
+
+
+
+  }
+
+
+
+    //running w/ encoders
+    public void runWithEncoders (int lb, int lf, int rb, int rf, float power) {
+        //stop and reset encoders
+        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        //set target position
+        frontRight.setTargetPosition(lb);
+        backRight.setTargetPosition(lf);
+        frontLeft.setTargetPosition(rb);
+        backLeft.setTargetPosition(rf);
+
+        //run to position
+        frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+        //move
+        while (frontRight.isBusy() && backRight.isBusy() &&
+                frontLeft.isBusy() && backLeft.isBusy())
+        {
+            frontRight.setPower(power);
+            backRight.setPower(power);
+            frontLeft.setPower(power);
+            backLeft.setPower(power);
+        }
+
+        frontRight.setPower(0);
+        backRight.setPower(0);
+        frontLeft.setPower(0);
+        backLeft.setPower(0);
+    }
+
+    public void STOP (int time) {
+
+        frontRight.setPower(0);
+        backRight.setPower(0);
+        frontLeft.setPower(0);
+        backLeft.setPower(0);
+
+        sleep(time);
+    }
+
+    public void SLEEP (int time) {sleep(time);}
+
+    public void moveWOEncoder (float lf, float lb, float rf, float rb, int time) {
+
+        frontRight.setPower(lf);
+        backRight.setPower(lb);
+        frontLeft.setPower(rf);
+        backLeft.setPower(rb);
+
+        sleep(time);
+    }
+
+    public void imu () {
+
+
+
+    }
+
+
+    }
