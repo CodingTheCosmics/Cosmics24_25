@@ -5,6 +5,7 @@ import static android.os.SystemClock.sleep;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
@@ -22,11 +23,16 @@ public class drivetrain {
     public drivetrain(HardwareMap hardwareMap) {
 
 
+        //driver hub connections
+        backRight = (DcMotorEx) hardwareMap.dcMotor.get("BR");
+        frontRight = (DcMotorEx) hardwareMap.dcMotor.get("FR");
+        backLeft = (DcMotorEx) hardwareMap.dcMotor.get("BL");
+        frontLeft = (DcMotorEx) hardwareMap.dcMotor.get("FL");
 
-        backRight = (DcMotorEx) hardwareMap.dcMotor.get("RB");
-        frontRight = (DcMotorEx) hardwareMap.dcMotor.get("RF");
-        backLeft = (DcMotorEx) hardwareMap.dcMotor.get("LB");
-        frontLeft = (DcMotorEx) hardwareMap.dcMotor.get("LF");
+
+        //directions
+        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        backRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
         //
         imu = hardwareMap.get(IMU.class, "imu");
@@ -60,24 +66,24 @@ public class drivetrain {
 
 
       //decrease power
-      double reductionFactor = 0.6;
+      double reductionFactor = 0.7;
 
       double slowModeFactor = 0.25;
 
 
       //actual power
-      frontRight.setPower((rotY + rotX + rx) * reductionFactor);
-      backRight.setPower((rotY - rotX + rx) * reductionFactor);
-      frontLeft.setPower((rotY + rotX - rx) * reductionFactor);
+      frontRight.setPower((-rotY - rotX - rx) * reductionFactor);
+      backRight.setPower((-rotY + rotX + rx) * reductionFactor);
+      frontLeft.setPower((rotY - rotX + rx) * reductionFactor);
       backLeft.setPower((rotY + rotX - rx) * reductionFactor);
 
       //slow mode
       if (slowMode) {
 
           //actual power
-          frontRight.setPower((rotY + rotX + rx) * slowModeFactor);
-          backRight.setPower((rotY - rotX + rx) * slowModeFactor);
-          frontLeft.setPower((rotY - rotX - rx) * slowModeFactor);
+          frontRight.setPower((-rotY - rotX - rx) * slowModeFactor);
+          backRight.setPower((-rotY + rotX + rx) * slowModeFactor);
+          frontLeft.setPower((rotY - rotX + rx) * slowModeFactor);
           backLeft.setPower((rotY + rotX - rx) * slowModeFactor);
 
       }

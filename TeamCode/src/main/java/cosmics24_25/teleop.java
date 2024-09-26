@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 
 import cosmics24_25.subsystems.drivetrain;
-//TODO call hardware map
+import cosmics24_25.subsystems.lift;
 
 
 @TeleOp
@@ -23,10 +23,10 @@ public class teleop extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         //initialized the arm w/ hardware map
-  /*      Arm arm = new Arm(hardwareMap, this);
+        lift LIFT = new lift(hardwareMap, this);
 
         //initialized the endgame subsystems w/hardware map
-        Endgame endgame = new Endgame(hardwareMap, this);
+       /* Endgame endgame = new Endgame(hardwareMap, this);
 
         //initialized the grabber w/ hardware map
         Grabber grabber = new Grabber(hardwareMap);*/
@@ -42,14 +42,20 @@ public class teleop extends LinearOpMode {
         while (opModeIsActive())  {
 
             //TABLE OF CONTENTS
-            //8 - Drivetrain
-            //9 - Telemetry
+            //1 - Lift
+            //2 - Drivetrain
+            //3 - Telemetry
 
 
+
+            if (gamepad1.y)
+            {   LIFT.lift(1f); }
+            if (gamepad1.a)
+            {  LIFT.lift(-1f); }
 
 
             //DRIVETRAIN
-            dt.move(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_y, gamepad1.a, gamepad1.b);
+            dt.move(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, gamepad1.x, gamepad1.b);
 
 
 
