@@ -48,10 +48,10 @@ public class teleop extends LinearOpMode {
 
 
 
-            if (gamepad1.y)
-            {   LIFT.lift(1f); }
-            if (gamepad1.a)
-            {  LIFT.lift(-1f); }
+            if (gamepad1.dpad_up)
+            {   LIFT.liftMovePosition(0.5f, 500); }
+            if (gamepad1.dpad_down)
+            {  LIFT.liftMovePosition(0.5f, -500); }
 
 
             //DRIVETRAIN

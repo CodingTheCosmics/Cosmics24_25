@@ -59,7 +59,7 @@ public class lift {
     }
 
 
-    public void lift(float power) {LIFT.setPower(power);}
+    public void goUp(float power) {LIFT.setPower(power);}
 
 
 
