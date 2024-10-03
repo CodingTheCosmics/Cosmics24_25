@@ -44,8 +44,6 @@ public class lift {
         LIFT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         LIFT.setTargetPosition(0);
         LIFT.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        //LIFT.setPower(0);
-
 
 
 

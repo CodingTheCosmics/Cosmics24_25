@@ -6,6 +6,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import cosmics24_25.subsystems.drivetrain;
 import cosmics24_25.subsystems.lift;
+import cosmics24_25.subsystems.grabber;
+import cosmics24_25.subsystems.ostrich;
+import cosmics24_25.subsystems.wrist;
 
 
 @TeleOp
@@ -22,16 +25,19 @@ public class teleop extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        //initialized the arm w/ hardware map
+        //init lifty lift
         lift LIFT = new lift(hardwareMap, this);
 
-        //initialized the endgame subsystems w/hardware map
-       /* Endgame endgame = new Endgame(hardwareMap, this);
+        //init grab crab
+        grabber GRABBER = new grabber(hardwareMap, this);
 
-        //initialized the grabber w/ hardware map
-        Grabber grabber = new Grabber(hardwareMap);*/
+        //init wrist
+        wrist WRIST = new wrist(hardwareMap,this);
 
-        //initialized the drivetrain w/ hardware map
+        //init ostrich <3
+        ostrich OSTRICH = new ostrich(hardwareMap, this);
+
+        //init zoom zoom
         drivetrain dt = new drivetrain(hardwareMap);
 
 
@@ -43,15 +49,44 @@ public class teleop extends LinearOpMode {
 
             //TABLE OF CONTENTS
             //1 - Lift
-            //2 - Drivetrain
-            //3 - Telemetry
+            //2 - Grabber
+            //3 - Wrist
+            //4 - Ostrich
+            //5 - Drivetrain
+            //6 - Telemetry
 
 
 
+            //LIFTY LIFT
             if (gamepad1.dpad_up)
             {   LIFT.liftMovePosition(0.5f, 500); }
             if (gamepad1.dpad_down)
             {  LIFT.liftMovePosition(0.5f, -500); }
+
+
+
+            //GRAB CRAB
+            if (gamepad2.a)
+            {   GRABBER.grabberClose();}
+            if (gamepad2.y)
+            {   GRABBER.grabberOpen();}
+
+
+            //WRISTY WRISTY WRISTY
+            if (gamepad2.dpad_left)
+            {   WRIST.wristHorizontal();}
+            if (gamepad2.dpad_right)
+            {   WRIST.wristVertical();}
+
+            //insert full rotation here
+
+
+            //*ostrich sound*
+            if (gamepad2.dpad_up)
+            {   OSTRICH.ostrichUp();}
+            if (gamepad2.dpad_down)
+            {   OSTRICH.ostrichDown();}
+
 
 
             //DRIVETRAIN
