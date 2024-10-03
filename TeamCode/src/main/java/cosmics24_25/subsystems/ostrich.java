@@ -16,8 +16,8 @@ public class ostrich {
 
 
     //ostrich move
-    double ostrichUP = 0.7;
-    double ostrichDOWN = 0;
+    double ostrichUP = 0;
+    double ostrichDOWN = 0.7;
 
 
 
@@ -31,7 +31,7 @@ public class ostrich {
         this.opMode = opMode;
 
         ostrich = hardwareMap.servo.get("ostrich");
-        ostrich.setPosition(ostrichDOWN);
+        ostrich.setPosition(ostrichUP);
 
 
     }

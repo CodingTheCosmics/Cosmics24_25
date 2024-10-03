@@ -17,7 +17,7 @@ public class wrist {
 
     //wrist moves!
     double wristVERTICAL = 0;
-    double wristHORIZONTAL = 0.5;
+    double wristHORIZONTAL = 0.6;
 
     OpMode opMode;
 
