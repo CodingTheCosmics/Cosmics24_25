@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
-public class drivetrain {
+public class Drivetrain {
 
     public DcMotorEx backRight;
     public DcMotorEx frontRight;
@@ -20,7 +20,7 @@ public class drivetrain {
     public IMU imu;
 
 
-    public drivetrain(HardwareMap hardwareMap) {
+    public Drivetrain(HardwareMap hardwareMap) {
 
 
         //driver hub connections
@@ -50,7 +50,7 @@ public class drivetrain {
 
 
 //teleop movement for mecanum drivetrain
-  public void move(float x, float y, float rx, boolean reset, boolean slowMode) {
+  public void move(float x, float y, float rx, boolean reset) {
 
       //reset button
       if (reset) {
@@ -66,9 +66,7 @@ public class drivetrain {
 
 
       //decrease power
-      double reductionFactor = 0.5;
-
-      double slowModeFactor = 0.25;
+      double reductionFactor = 0.75;
 
 
       //actual power
@@ -76,17 +74,6 @@ public class drivetrain {
       backRight.setPower((-rotY + rotX + rx) * reductionFactor);
       frontLeft.setPower((rotY - rotX + rx) * reductionFactor);
       backLeft.setPower((rotY + rotX - rx) * reductionFactor);
-
-      //slow mode
-      if (slowMode) {
-
-          //actual power
-          frontRight.setPower((-rotY - rotX - rx) * slowModeFactor);
-          backRight.setPower((-rotY + rotX + rx) * slowModeFactor);
-          frontLeft.setPower((rotY - rotX + rx) * slowModeFactor);
-          backLeft.setPower((rotY + rotX - rx) * slowModeFactor);
-
-      }
 
 
 

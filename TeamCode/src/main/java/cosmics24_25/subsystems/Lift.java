@@ -6,11 +6,9 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.PIDCoefficients;
-import com.qualcomm.robotcore.hardware.TouchSensor;
 
 
-public class lift {
+public class Lift {
 
     //arm motors defined
     public DcMotorEx LIFT;
@@ -35,7 +33,7 @@ public class lift {
 
 
     //arm definitions and connections to driver hub
-    public lift(HardwareMap hardwareMap, OpMode opMode) {
+    public Lift(HardwareMap hardwareMap, OpMode opMode) {
 
         this.opMode = opMode;
 
@@ -57,7 +55,10 @@ public class lift {
     }
 
 
-    public void goUp(float power) {LIFT.setPower(power);}
+    public void goUp(float power) {
+        LIFT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        LIFT.setPower(power);
+    }
 
 
 
@@ -65,6 +66,8 @@ public class lift {
     public void liftMovePosition (float power, int targetPosition) {
 
         LIFT.setTargetPosition(targetPosition);
+
+        LIFT.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         LIFT.setPower(power);
 
@@ -78,7 +81,7 @@ public class lift {
 
 
 
-    public void armTelemetry () {
+    public void liftTelemetry () {
         opMode.telemetry.addData("lift position", LIFT.getCurrentPosition());
 
     }
