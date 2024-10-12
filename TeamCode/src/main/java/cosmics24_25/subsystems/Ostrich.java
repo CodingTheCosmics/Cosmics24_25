@@ -14,7 +14,7 @@ public class Ostrich {
     //ostrich move
     double ostrichSTART = 0.53;
     double ostrichUP = 0.6;
-    double ostrichDOWN = 1;
+    double ostrichDOWN = 0.95;
 
     double currentPosition;
 

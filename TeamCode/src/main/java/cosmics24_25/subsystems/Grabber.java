@@ -13,7 +13,7 @@ public class Grabber {
     //grabcrab positions
     double grabberCLOSE = 1;
 
-    double grabberOPEN = 0.5;
+    double grabberOPEN = 0.75;
 
 
     OpMode opMode;
