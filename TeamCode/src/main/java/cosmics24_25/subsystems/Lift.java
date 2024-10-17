@@ -5,7 +5,9 @@ import static android.os.SystemClock.sleep;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.PIDCoefficients;
 
 
 public class Lift {
@@ -19,13 +21,13 @@ public class Lift {
 
 
     //Proportional: higher, faster
-    public static final double NEW_P = 40.000000;
+    public static final double NEW_P = 20.000000;
 
     //Integral: Lower, less overshoot
     public static final double NEW_I = 0.01;
 
     //Derivative: rate of rate of change (acceleration) Keep 0
-    public static final double NEW_D = 0;
+    public static final double NEW_D = 1;
 
 
 
@@ -39,24 +41,26 @@ public class Lift {
 
         LIFT = (DcMotorEx) hardwareMap.dcMotor.get("LIFT");
 
+        LIFT.setDirection(DcMotorSimple.Direction.REVERSE);
+
         LIFT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         LIFT.setTargetPosition(0);
         LIFT.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
 
-      /* PIDCoefficients pidOrig = LIFT.getPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER);
+       PIDCoefficients pidOrig = LIFT.getPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // change coefficients using methods included with DcMotorEx class.
        PIDCoefficients pidNew = new PIDCoefficients(NEW_P, NEW_I, NEW_D);
-       LIFT.setPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pidNew); */
+       LIFT.setPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pidNew);
 
 
     }
 
 
     public void goUp(float power) {
-        LIFT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        LIFT.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         LIFT.setPower(power);
     }
 
@@ -64,6 +68,8 @@ public class Lift {
 
     //grabber arm move to position
     public void liftMovePosition (float power, int targetPosition) {
+
+        LIFT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         LIFT.setTargetPosition(targetPosition);
 
@@ -83,6 +89,7 @@ public class Lift {
 
     public void liftTelemetry () {
         opMode.telemetry.addData("lift position", LIFT.getCurrentPosition());
+        opMode.telemetry.addData("lift speed", LIFT.getVelocity());
 
     }
 
