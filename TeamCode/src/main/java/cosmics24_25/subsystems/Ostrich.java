@@ -12,9 +12,11 @@ public class Ostrich {
 
 
     //ostrich move
-    double ostrichSTART = 0.53;
-    double ostrichUP = 0.6;
-    double ostrichDOWN = 0.95;
+    double ostrichSTART = 0.25;
+    double ostrichUP = 0.4;
+
+    double ostrichMID = 0.6;
+    double ostrichDOWN = 0.9;
 
     double currentPosition;
 
@@ -49,6 +51,13 @@ public class Ostrich {
     {
         ostrich.setPosition(ostrichDOWN);
         currentPosition = ostrichDOWN;
+        ostrich.setPosition(currentPosition);
+    }
+
+    public void ostrichMid ()
+    {
+        ostrich.setPosition(ostrichMID);
+        currentPosition = ostrichMID;
         ostrich.setPosition(currentPosition);
     }
 

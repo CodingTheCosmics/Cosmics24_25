@@ -101,10 +101,10 @@ public class teleop extends LinearOpMode {
 
             //full rotation
             if (gamepad1.dpad_left || gamepad2.dpad_left) {
-                OSTRICH.ostrichMoveUp();
+                OSTRICH.ostrichMid();
             }
             if (gamepad1.dpad_right || gamepad2.dpad_right) {
-                OSTRICH.ostrichMoveDown();
+                OSTRICH.ostrichMid();
             }
 
 
