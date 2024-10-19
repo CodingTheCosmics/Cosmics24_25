@@ -69,13 +69,19 @@ public class Lift {
     //grabber arm move to position
     public void liftMovePosition (float power, int targetPosition) {
 
-        LIFT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
 
         LIFT.setTargetPosition(targetPosition);
 
         LIFT.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        LIFT.setPower(power);
+        //move
+        while (LIFT.isBusy())
+        {
+            LIFT.setPower(power);
+        }
+
+
 
     }
 

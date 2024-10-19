@@ -51,11 +51,11 @@ public class teleop extends LinearOpMode {
             //LIFT
             //LIFTY LIFT
             if (gamepad1.y || gamepad2.y) {
-                LIFT.liftMovePosition(0.75f, -1000);
+                LIFT.liftMovePosition(0.75f, 2000);
             }
-          /*  if (gamepad1.a || gamepad2.a) {
-                LIFT.liftMovePosition(0.75f, -500);
-            }*/
+           if (gamepad1.a || gamepad2.a) {
+                LIFT.goUp(0f);
+            }
 
             LIFT.goUp(-gamepad2.left_stick_y);
 
