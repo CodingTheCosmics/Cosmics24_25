@@ -8,12 +8,12 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Grabber {
 
     //hehe grabcrab
-    public Servo GRABBER;
+    public Servo grabber;
 
     //grabcrab positions
-    double grabberCLOSE = 1;
+    double GRABBER_CLOSE = 1;
 
-    double grabberOPEN = 0.75;
+    double GRABBER_OPEN = 0.75;
 
 
     OpMode opMode;
@@ -25,8 +25,8 @@ public class Grabber {
         this.opMode = opMode;
 
         //defnitions and set position
-        GRABBER = hardwareMap.servo.get("grabber");
-        GRABBER.setPosition(grabberCLOSE);
+        grabber = hardwareMap.servo.get("grabber");
+        grabber.setPosition(GRABBER_CLOSE);
 
 
 
@@ -34,9 +34,11 @@ public class Grabber {
 
     //GRAB CRAB GRABS :D
 
-    public void grabberClose () {GRABBER.setPosition(grabberCLOSE);}
+    public void grabberClose () {
+        grabber.setPosition(GRABBER_CLOSE);}
 
-    public void grabberOpen () {GRABBER.setPosition(grabberOPEN);}
+    public void grabberOpen () {
+        grabber.setPosition(GRABBER_OPEN);}
 
 
     }

@@ -12,8 +12,8 @@ public class Wrist {
 
 
     //wrist moves!
-    double wristVERTICAL = 1;
-    double wristHORIZONTAL = 0;
+    double WRIST_VERTICAL = 1;
+    double WRIST_HORIZONTAL = 0;
 
 
     double currentPosition;
@@ -24,13 +24,14 @@ public class Wrist {
 
 
     //arm definitions and connections to driver hub
-    public Wrist(HardwareMap hardwareMap, OpMode opMode) {
+    public Wrist(HardwareMap hardwareMap, OpMode opMode)
+    {
 
         this.opMode = opMode;
 
         wrist = hardwareMap.servo.get("wrist");
-        wrist.setPosition(wristVERTICAL);
-        currentPosition = wristVERTICAL;
+        wrist.setPosition(WRIST_VERTICAL);
+        currentPosition = WRIST_VERTICAL;
 
 
     }
@@ -39,16 +40,16 @@ public class Wrist {
     //wrist go up and down
     public void wristVertical ()
     {
-        wrist.setPosition(wristVERTICAL);
-        currentPosition = wristVERTICAL;
+        wrist.setPosition(WRIST_VERTICAL);
+        currentPosition = WRIST_VERTICAL;
         wrist.setPosition(currentPosition);
     }
 
 
     public void wristHorizontal ()
     {
-        wrist.setPosition(wristHORIZONTAL);
-        currentPosition = wristHORIZONTAL;
+        wrist.setPosition(WRIST_HORIZONTAL);
+        currentPosition = WRIST_HORIZONTAL;
         wrist.setPosition(currentPosition);
     }
 
