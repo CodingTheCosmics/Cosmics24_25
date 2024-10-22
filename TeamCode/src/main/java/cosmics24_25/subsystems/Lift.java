@@ -2,6 +2,7 @@ package cosmics24_25.subsystems;
 
 import static android.os.SystemClock.sleep;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -13,11 +14,15 @@ import com.qualcomm.robotcore.hardware.PIDCoefficients;
 public class Lift {
 
     //arm motors defined
-    public DcMotorEx LIFT;
+    public DcMotorEx lift;
 
 
     //default power for overrides
     public static float DEFAULT_POWER = 0.5f;
+
+    public static float MAX_EXTEND = 2000f;
+
+    public static float MAX_DOWN = 0f;
 
 
     //Proportional: higher, faster
@@ -39,63 +44,64 @@ public class Lift {
 
         this.opMode = opMode;
 
-        LIFT = (DcMotorEx) hardwareMap.dcMotor.get("LIFT");
+        lift = (DcMotorEx) hardwareMap.dcMotor.get("LIFT");
 
-        LIFT.setDirection(DcMotorSimple.Direction.REVERSE);
+        lift.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        LIFT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        LIFT.setTargetPosition(0);
-        LIFT.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lift.setTargetPosition(0);
+
+        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
 
-       PIDCoefficients pidOrig = LIFT.getPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER);
+       PIDCoefficients pidOrig = lift.getPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // change coefficients using methods included with DcMotorEx class.
        PIDCoefficients pidNew = new PIDCoefficients(NEW_P, NEW_I, NEW_D);
-       LIFT.setPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pidNew);
+       lift.setPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pidNew);
 
 
     }
 
 
-    public void goUp(float power) {
-        LIFT.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        LIFT.setPower(power);
+    public void goUp(float power)
+    {
+        lift.setPower(power);
+
     }
 
 
 
     //grabber arm move to position
-    public void liftMovePosition (float power, int targetPosition) {
+    public void liftMovePosition (float power, int targetPosition)
+    {
+        lift.setTargetPosition(targetPosition);
 
-
-
-        LIFT.setTargetPosition(targetPosition);
-
-        LIFT.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         //move
-        while (LIFT.isBusy())
+        //for auto? - && ((LinearOpMode)opMode).opModeIsActive()
+        while (lift.isBusy())
         {
-            LIFT.setPower(power);
+            lift.setPower(power);
         }
-
-
-
+        lift.setPower(0);
     }
 
 
     //arm ONLY sleep
-    public void LIFTSLEEP (int time) {
+    public void LIFTSLEEP (int time)
+    {
         sleep(time);
     }
 
 
 
-    public void liftTelemetry () {
-        opMode.telemetry.addData("lift position", LIFT.getCurrentPosition());
-        opMode.telemetry.addData("lift speed", LIFT.getVelocity());
+    public void liftTelemetry ()
+    {
+        opMode.telemetry.addData("lift position", lift.getCurrentPosition());
+        opMode.telemetry.addData("lift speed", lift.getVelocity());
 
     }
 

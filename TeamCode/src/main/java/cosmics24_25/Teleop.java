@@ -2,6 +2,7 @@ package cosmics24_25;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 
 import cosmics24_25.subsystems.Drivetrain;
@@ -9,29 +10,33 @@ import cosmics24_25.subsystems.Lift;
 import cosmics24_25.subsystems.Grabber;
 import cosmics24_25.subsystems.Ostrich;
 import cosmics24_25.subsystems.Wrist;
+import cosmics24_25.subsystems.Distance_Sensor;
 
 
 @TeleOp
-public class teleop extends LinearOpMode {
+public class Teleop extends LinearOpMode {
 
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         //init lifty lift
-        Lift LIFT = new Lift(hardwareMap, this);
+        Lift lift = new Lift(hardwareMap, this);
 
         //init grab crab
-        Grabber GRABBER = new Grabber(hardwareMap, this);
+        Grabber grabber = new Grabber(hardwareMap, this);
 
         //init wrist
-        Wrist WRIST = new Wrist(hardwareMap, this);
+        Wrist wrist = new Wrist(hardwareMap, this);
 
         //init ostrich <3
-        Ostrich OSTRICH = new Ostrich(hardwareMap, this);
+        Ostrich ostrich = new Ostrich(hardwareMap, this);
 
         //init zoom zoom
         Drivetrain dt = new Drivetrain(hardwareMap);
+
+        //init HOW FAR????
+        Distance_Sensor howFar = new Distance_Sensor(hardwareMap, this);
 
 
         waitForStart();
@@ -51,23 +56,23 @@ public class teleop extends LinearOpMode {
             //LIFT
             //LIFTY LIFT
             if (gamepad1.y || gamepad2.y) {
-                LIFT.liftMovePosition(0.75f, 2000);
+                lift.liftMovePosition(0.75f, 1900);
             }
            if (gamepad1.a || gamepad2.a) {
-                LIFT.goUp(0f);
+                lift.goUp(0f);
             }
 
-            LIFT.goUp(-gamepad2.left_stick_y);
+            lift.goUp(-gamepad2.left_stick_y);
 
 
 
             //GRABBER
             //GRAB CRAB
             if (gamepad1.x || gamepad2.x) {
-                GRABBER.grabberClose();
+                grabber.grabberClose();
             }
             if (gamepad1.b || gamepad2.b) {
-                GRABBER.grabberOpen();
+                grabber.grabberOpen();
             }
 
 
@@ -75,36 +80,36 @@ public class teleop extends LinearOpMode {
             //WRIST
             //WRISTY WRISTY WRISTY
             if (gamepad1.left_bumper || gamepad2.left_bumper) {
-                WRIST.wristHorizontal();
+                wrist.wristHorizontal();
             }
             if (gamepad1.right_bumper || gamepad2.right_bumper) {
-                WRIST.wristVertical();
+                wrist.wristVertical();
             }
 
             //full rotation
             if (gamepad1.left_trigger >= 0.5f) {
-                WRIST.rotateLeft();
+                wrist.rotateLeft();
             }
             if (gamepad1.right_trigger >= 0.5f) {
-                WRIST.rotateLeft();
+                wrist.rotateLeft();
             }
 
 
             //OSTRICH
             //*ostrich sound*
             if (gamepad1.dpad_up || gamepad2.dpad_up) {
-                OSTRICH.ostrichUp();
+                ostrich.ostrichUp();
             }
             if (gamepad1.dpad_down || gamepad2.dpad_down) {
-                OSTRICH.ostrichDown();
+                ostrich.ostrichDown();
             }
 
             //full rotation
             if (gamepad1.dpad_left || gamepad2.dpad_left) {
-                OSTRICH.ostrichMid();
+                ostrich.ostrichMid();
             }
             if (gamepad1.dpad_right || gamepad2.dpad_right) {
-                OSTRICH.ostrichMid();
+                ostrich.ostrichMid();
             }
 
 
@@ -122,8 +127,9 @@ public class teleop extends LinearOpMode {
                 telemetry.addData("dpad up", gamepad1.dpad_up);
                 telemetry.addData("dpad down", gamepad1.dpad_down);
 
-                OSTRICH.ostrichTelemetry();
-                LIFT.liftTelemetry();
+                ostrich.ostrichTelemetry();
+                lift.liftTelemetry();
+                howFar.howFarTelemetry();
 
                 telemetry.update();
 
