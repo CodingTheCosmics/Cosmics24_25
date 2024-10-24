@@ -15,7 +15,7 @@ public class BlueAuto2_1 extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        Pose2d startPose = new Pose2d(-7, 65, -90);
+        Pose2d startPose = new Pose2d(-7, 65, Math.toRadians(-90));
 
         drive.setPoseEstimate(startPose);
 
