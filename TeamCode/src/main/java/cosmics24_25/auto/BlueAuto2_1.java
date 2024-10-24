@@ -20,33 +20,51 @@ public class BlueAuto2_1 extends LinearOpMode {
         drive.setPoseEstimate(startPose);
 
         TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
-                .splineTo(new Vector2d(55, 55), Math.toRadians(45))
+                //go to bar
+                .splineTo(new Vector2d(-7, 35), Math.toRadians(-90))
                 .waitSeconds(1)
-                //insert marker to drop preloaded sample into bucket (1)
+                //insert marker to hang specimen (1)
 
-                .splineTo(new Vector2d(55, 50), Math.toRadians(-90))
+                //go to samples on field
+                .strafeTo(new Vector2d(-45, 40))
                 .waitSeconds(1)
                 //insert marker to pick up new sample (2)
 
-                .splineTo(new Vector2d(55, 55), Math.toRadians(45))
+                //go to human player zone
+                .splineTo(new Vector2d(-35, 65), Math.toRadians(-180))
                 .waitSeconds(1)
-                //insert marker to drop sample into bucket (2)
+                //insert marker to drop sample into human player zone (2)
 
-                .splineTo(new Vector2d(40, 25), Math.toRadians(0))
+                //go back to sample on field
+                .strafeTo(new Vector2d(-45, 25))
                 .waitSeconds(1)
-                //insert marker to pick up new sample (3)
+                //insert marker to get new sample (3)
 
-                .splineTo(new Vector2d(55, 55), Math.toRadians(45))
+                //go back to human player station
+                .strafeTo(new Vector2d(-35, 65))
                 .waitSeconds(1)
-                //insert marker to drop sample into bucket (3)
+                //insert marker to drop new sample (3) and pick up specimen (2)
 
-                .splineTo(new Vector2d(55, 25), Math.toRadians(0))
+                //go to bar
+                .splineTo(new Vector2d(-7, 35), Math.toRadians(-90))
                 .waitSeconds(1)
-                //insert marker to pick up new sample (4)
+                //insert marker to hang specimen (2)
 
-                .splineTo(new Vector2d(55, 55), Math.toRadians(45))
+                //go to sample on field
+                .strafeTo(new Vector2d(-35, 35))
+                .splineTo(new Vector2d(-55, 25), Math.toRadians(90))
                 .waitSeconds(1)
-                //insert marker to drop sample into bucket (4)
+                //insert marker to pick up sample (4)
+
+                //go to human player station
+                .strafeTo(new Vector2d(-35, 65))
+                .waitSeconds(1)
+                //insert marker to drop off sample (4) and pick up specimen (3)
+
+                //go to bar
+                .splineTo(new Vector2d(-7, 35), Math.toRadians(-90))
+                .waitSeconds(1)
+                //insert marker to hang specimen (3)
 
                 .build();
 

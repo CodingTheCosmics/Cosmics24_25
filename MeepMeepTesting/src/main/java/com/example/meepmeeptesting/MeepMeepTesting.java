@@ -28,7 +28,8 @@ public class MeepMeepTesting {
                 //insert marker to pick up new sample (2)
 
                 //go to human player zone
-                .splineTo(new Vector2d(-35, 65), Math.toRadians(-180))
+                .strafeTo(new Vector2d(-35, 65))
+                .turnTo(Math.toRadians(45))
                 .waitSeconds(1)
                 //insert marker to drop sample into human player zone (2)
 
@@ -40,29 +41,17 @@ public class MeepMeepTesting {
                 //go back to human player station
                 .strafeTo(new Vector2d(-35, 65))
                 .waitSeconds(1)
-                //insert marker to drop new sample (3) and pick up specimen (2)
-
-                //go to bar
-                .splineTo(new Vector2d(-7, 35), Math.toRadians(-90))
-                .waitSeconds(1)
-                //insert marker to hang specimen (2)
+                //insert marker to drop new sample (3)
 
                 //go to sample on field
-                .strafeTo(new Vector2d(-35, 35))
-                .splineTo(new Vector2d(-55, 25), Math.toRadians(90))
+                .strafeTo(new Vector2d(-55, 25))
                 .waitSeconds(1)
                 //insert marker to pick up sample (4)
 
                 //go to human player station
                 .strafeTo(new Vector2d(-35, 65))
                 .waitSeconds(1)
-                //insert marker to drop off sample (4) and pick up specimen (3)
-
-                //go to bar
-                .splineTo(new Vector2d(-7, 35), Math.toRadians(-90))
-                .waitSeconds(1)
-                //insert marker to hang specimen (3)
-
+                //insert marker to drop off sample (4)
 
                 .build());
 
