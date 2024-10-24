@@ -2,7 +2,6 @@ package cosmics24_25;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 
 import cosmics24_25.subsystems.Drivetrain;
@@ -10,7 +9,7 @@ import cosmics24_25.subsystems.Lift;
 import cosmics24_25.subsystems.Grabber;
 import cosmics24_25.subsystems.Ostrich;
 import cosmics24_25.subsystems.Wrist;
-import cosmics24_25.subsystems.Distance_Sensor;
+import cosmics24_25.subsystems.distanceSensor;
 
 
 @TeleOp
@@ -36,7 +35,7 @@ public class Teleop extends LinearOpMode {
         Drivetrain dt = new Drivetrain(hardwareMap);
 
         //init HOW FAR????
-        Distance_Sensor howFar = new Distance_Sensor(hardwareMap, this);
+        distanceSensor how_far = new distanceSensor(hardwareMap, this);
 
 
         waitForStart();
@@ -129,7 +128,7 @@ public class Teleop extends LinearOpMode {
 
                 ostrich.ostrichTelemetry();
                 lift.liftTelemetry();
-                howFar.howFarTelemetry();
+                how_far.howFarTelemetry();
 
                 telemetry.update();
 
