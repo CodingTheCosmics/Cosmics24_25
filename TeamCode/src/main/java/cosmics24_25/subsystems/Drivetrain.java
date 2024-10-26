@@ -50,7 +50,7 @@ public class Drivetrain {
 
 
 //teleop movement for mecanum drivetrain
-  public void move(float x, float y, float rx, boolean reset) {
+  public void move(float x, float y, float rx, boolean reset, boolean goFast) {
 
       //reset button
       if (reset) {
@@ -66,14 +66,28 @@ public class Drivetrain {
 
 
       //decrease power
-      double reductionFactor = 0.75;
+      double reductionFactor = 0.25;
+      double normalPower = 0.75;
 
 
-      //actual power
-      frontRight.setPower((-rotY - rotX - rx) * reductionFactor);
-      backRight.setPower((-rotY + rotX + rx) * reductionFactor);
-      frontLeft.setPower((rotY - rotX + rx) * reductionFactor);
-      backLeft.setPower((rotY + rotX - rx) * reductionFactor);
+      //to go faster
+      if (goFast) {
+          //actual power
+          frontRight.setPower((-rotY - rotX - rx) * normalPower);
+          backRight.setPower((-rotY + rotX + rx) * normalPower);
+          frontLeft.setPower((rotY - rotX + rx) * normalPower);
+          backLeft.setPower((rotY + rotX - rx) * normalPower);
+
+      }
+
+      else {
+          //actual power
+          frontRight.setPower((-rotY - rotX - rx) * reductionFactor);
+          backRight.setPower((-rotY + rotX + rx) * reductionFactor);
+          frontLeft.setPower((rotY - rotX + rx) * reductionFactor);
+          backLeft.setPower((rotY + rotX - rx) * reductionFactor);
+
+      }
 
 
 

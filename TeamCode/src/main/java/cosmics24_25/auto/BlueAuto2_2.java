@@ -5,7 +5,7 @@ import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import cosmics24_25.subsystems.OdometryDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 @Autonomous
@@ -13,7 +13,7 @@ public class BlueAuto2_2 extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+        OdometryDrive drive = new OdometryDrive(hardwareMap);
 
         Pose2d startPose = new Pose2d(-7, 65, Math.toRadians(-90));
 

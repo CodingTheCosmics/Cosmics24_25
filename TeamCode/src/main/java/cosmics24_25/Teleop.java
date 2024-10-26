@@ -1,13 +1,20 @@
 package cosmics24_25;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 
+import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
+import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuilder;
+
 import cosmics24_25.subsystems.Drivetrain;
 import cosmics24_25.subsystems.Lift;
 import cosmics24_25.subsystems.Grabber;
+import cosmics24_25.subsystems.OdometryDrive;
 import cosmics24_25.subsystems.Ostrich;
+import cosmics24_25.subsystems.PoseStorage;
 import cosmics24_25.subsystems.Wrist;
 import cosmics24_25.subsystems.distanceSensor;
 
@@ -37,6 +44,20 @@ public class Teleop extends LinearOpMode {
         //init HOW FAR????
         distanceSensor how_far = new distanceSensor(hardwareMap, this);
 
+        //init new zoom zoom
+        OdometryDrive drive = new OdometryDrive(hardwareMap);
+        drive.setPoseEstimate(PoseStorage.currentPose);
+
+        //trajectories for odometry
+        TrajectorySequence goToBucket = drive.trajectorySequenceBuilder(PoseStorage.currentPose)
+            .splineTo(new Vector2d(55, 55), Math.toRadians(45))
+            //lift here
+            .addTemporalMarker(() -> grabber.grabberOpen())
+            //lift down
+            .waitSeconds(0.5)
+
+            .build();
+
 
         waitForStart();
 
@@ -54,10 +75,10 @@ public class Teleop extends LinearOpMode {
 
             //LIFT
             //LIFTY LIFT
-            if (gamepad1.y || gamepad2.y) {
+            if (gamepad2.y) {
                 lift.liftMovePosition(0.75f, 1900);
             }
-           if (gamepad1.a || gamepad2.a) {
+           if (gamepad2.a) {
                 lift.goUp(0f);
             }
 
@@ -67,10 +88,10 @@ public class Teleop extends LinearOpMode {
 
             //GRABBER
             //GRAB CRAB
-            if (gamepad1.x || gamepad2.x) {
+            if (gamepad2.x) {
                 grabber.grabberClose();
             }
-            if (gamepad1.b || gamepad2.b) {
+            if (gamepad2.b) {
                 grabber.grabberOpen();
             }
 
@@ -78,10 +99,10 @@ public class Teleop extends LinearOpMode {
 
             //WRIST
             //WRISTY WRISTY WRISTY
-            if (gamepad1.left_bumper || gamepad2.left_bumper) {
+            if (gamepad2.left_bumper) {
                 wrist.wristHorizontal();
             }
-            if (gamepad1.right_bumper || gamepad2.right_bumper) {
+            if (gamepad2.right_bumper) {
                 wrist.wristVertical();
             }
 
@@ -96,35 +117,38 @@ public class Teleop extends LinearOpMode {
 
             //OSTRICH
             //*ostrich sound*
-            if (gamepad1.dpad_up || gamepad2.dpad_up) {
+            if (gamepad2.dpad_up) {
                 ostrich.ostrichUp();
             }
-            if (gamepad1.dpad_down || gamepad2.dpad_down) {
+            if (gamepad2.dpad_down) {
                 ostrich.ostrichDown();
             }
 
             //full rotation
-            if (gamepad1.dpad_left || gamepad2.dpad_left) {
+            if (gamepad2.dpad_left) {
                 ostrich.ostrichMid();
             }
-            if (gamepad1.dpad_right || gamepad2.dpad_right) {
+            if (gamepad2.dpad_right) {
                 ostrich.ostrichMid();
             }
 
 
 
             //DRIVETRAIN
-            dt.move(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, gamepad1.left_stick_button);
+            dt.move(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, gamepad1.left_stick_button, gamepad1.left_bumper);
+
+            drive.update();
+            Pose2d myPose = drive.getPoseEstimate();
+
+            if (gamepad1.a) {
+                drive.followTrajectorySequence(goToBucket);
+            }
 
 
                 //TELEMETRY
-                telemetry.addData("left x", gamepad1.left_stick_x);
-                telemetry.addData("left y", gamepad1.left_stick_y);
-                telemetry.addData("right x", gamepad1.right_stick_x);
-                telemetry.addData("right y", gamepad1.right_stick_y);
-
-                telemetry.addData("dpad up", gamepad1.dpad_up);
-                telemetry.addData("dpad down", gamepad1.dpad_down);
+                telemetry.addData("x", myPose.getX());
+                telemetry.addData("y", myPose.getY());
+                telemetry.addData("heading", myPose.getHeading());
 
                 ostrich.ostrichTelemetry();
                 lift.liftTelemetry();
