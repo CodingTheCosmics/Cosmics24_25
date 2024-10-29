@@ -11,9 +11,9 @@ public class Grabber {
     public Servo grabber;
 
     //grabcrab positions
-    double GRABBER_CLOSE = 1;
+    public static final double GRABBER_CLOSE = 1;
 
-    double GRABBER_OPEN = 0.75;
+    public static final double GRABBER_OPEN = 0.75;
 
 
     OpMode opMode;
@@ -27,7 +27,6 @@ public class Grabber {
         //defnitions and set position
         grabber = hardwareMap.servo.get("grabber");
         grabber.setPosition(GRABBER_CLOSE);
-
 
 
     }

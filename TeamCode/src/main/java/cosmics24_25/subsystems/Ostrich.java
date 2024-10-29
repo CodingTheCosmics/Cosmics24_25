@@ -12,11 +12,13 @@ public class Ostrich {
 
 
     //ostrich move
-    double ostrichSTART = 0.25;
-    double ostrichUP = 0.3;
+    public static final double OSTRICH_START = 0.25;
 
-    double ostrichMID = 0.6;
-    double ostrichDOWN = 1;
+    public static final double OSTRICH_UP = 0.3;
+
+    public static final double OSTRICH_MID = 0.6;
+
+    public static final double OSTRICH_DOWN = 1;
 
     double currentPosition;
 
@@ -32,8 +34,8 @@ public class Ostrich {
         this.opMode = opMode;
 
         ostrich = hardwareMap.servo.get("ostrich");
-        ostrich.setPosition(ostrichSTART);
-        ostrichSTART = currentPosition;
+        ostrich.setPosition(OSTRICH_START);
+        currentPosition = OSTRICH_START;
 
 
     }
@@ -42,23 +44,20 @@ public class Ostrich {
     // I HEART OSTRICHES
     public void ostrichUp ()
     {
-        ostrich.setPosition(ostrichUP);
-        currentPosition = ostrichUP;
-        ostrich.setPosition(currentPosition);
+        ostrich.setPosition(OSTRICH_UP);
+        currentPosition = OSTRICH_UP;
     }
 
     public void ostrichDown ()
     {
-        ostrich.setPosition(ostrichDOWN);
-        currentPosition = ostrichDOWN;
-        ostrich.setPosition(currentPosition);
+        ostrich.setPosition(OSTRICH_DOWN);
+        currentPosition = OSTRICH_DOWN;
     }
 
     public void ostrichMid ()
     {
-        ostrich.setPosition(ostrichMID);
-        currentPosition = ostrichMID;
-        ostrich.setPosition(currentPosition);
+        ostrich.setPosition(OSTRICH_MID);
+        currentPosition = OSTRICH_MID;
     }
 
 

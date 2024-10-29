@@ -18,11 +18,11 @@ public class Lift {
 
 
     //default power for overrides
-    public static float DEFAULT_POWER = 0.5f;
+    public static final float DEFAULT_POWER = 0.5f;
 
-    public static float MAX_EXTEND = 2000f;
+    public static final float MAX_EXTEND = 2000f;
 
-    public static float MAX_DOWN = 0f;
+    public static final float MAX_DOWN = 0f;
 
 
     //Proportional: higher, faster
