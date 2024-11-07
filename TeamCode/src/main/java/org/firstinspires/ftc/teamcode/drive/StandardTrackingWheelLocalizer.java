@@ -31,13 +31,13 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
     public static double WHEEL_RADIUS = 0.944882; // in
     public static double GEAR_RATIO = 1; // output (wheel) speed / input (encoder) speed
 
-    public static double LATERAL_DISTANCE = 11.8329462; // in; distance between the left and right wheels
+    public static double LATERAL_DISTANCE = 10.773261099400017; // in; distance between the left and right wheels
     public static double FORWARD_OFFSET = 1; // in; offset of the lateral wheel
 
     private Encoder leftEncoder, rightEncoder, frontEncoder;
 
-    public static double X_MULTIPLIER = 1.01474118; //multiplier in x direction
-    public static double Y_MULTIPLIER = 1.00672793; //Multiplier in the Y direction
+    public static double X_MULTIPLIER = 1.00106778; //multiplier in x direction
+    public static double Y_MULTIPLIER = 1.00111445; //Multiplier in the Y direction
 
     private List<Integer> lastEncPositions, lastEncVels;
 
@@ -51,9 +51,9 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
         lastEncPositions = lastTrackingEncPositions;
         lastEncVels = lastTrackingEncVels;
 
-        leftEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "FL"));
-        rightEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "FR"));
-        frontEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "BR"));
+        leftEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "BL"));
+        rightEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "BR"));
+        frontEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "FL"));
 
         frontEncoder.setDirection(Encoder.Direction.REVERSE);
 
