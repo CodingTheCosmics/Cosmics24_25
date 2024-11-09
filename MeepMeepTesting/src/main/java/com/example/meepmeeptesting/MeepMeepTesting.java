@@ -13,45 +13,50 @@ public class MeepMeepTesting {
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(45, 30, 4.639, Math.toRadians(30), 11.35)
+                .setConstraints(30, 30, 5.82005, 4.6494, 10.51)
                 .build();
 
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-7, 65, Math.toRadians(-90)))
-                //go to bar
-                .splineTo(new Vector2d(-7, 35), Math.toRadians(-90))
-                .waitSeconds(1)
-                //insert marker to hang specimen (1)
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(7, 65, Math.toRadians(-90)))
+                .strafeTo(new Vector2d(55, 55))
+                //lift here
+                //.addTemporalMarker(() -> grabber.grabberOpen())
+                //lift down
+                .waitSeconds(0.5)
 
-                //go to samples on field
-                .strafeTo(new Vector2d(-45, 40))
-                .waitSeconds(1)
-                //insert marker to pick up new sample (2)
+                //sample dropped into bucket (2)
 
-                //go to human player zone
-                .strafeTo(new Vector2d(-35, 65))
-                .turnTo(Math.toRadians(45))
-                .waitSeconds(1)
-                //insert marker to drop sample into human player zone (2)
+               // .splineTo(new Vector2d(40, 25), Math.toRadians(0))
+                .strafeTo(new Vector2d(40, 25))
+                /*.addTemporalMarker(() -> ostrich.ostrichDown())
+                .addTemporalMarker(() -> grabber.grabberClose())
+                .addTemporalMarker(() -> ostrich.ostrichUp()) */
+                .waitSeconds(0.5)
 
-                //go back to sample on field
-                .strafeTo(new Vector2d(-45, 25))
-                .waitSeconds(1)
-                //insert marker to get new sample (3)
+                //picked up new sample (3)
 
-                //go back to human player station
-                .strafeTo(new Vector2d(-35, 65))
-                .waitSeconds(1)
-                //insert marker to drop new sample (3)
+                .strafeTo(new Vector2d(55, 55))
+                //lift here
+                //.addTemporalMarker(() -> grabber.grabberOpen())
+                //lift down
+                .waitSeconds(0.5)
 
-                //go to sample on field
-                .strafeTo(new Vector2d(-55, 25))
-                .waitSeconds(1)
-                //insert marker to pick up sample (4)
+                //sample dropped into bucket (3)
 
-                //go to human player station
-                .strafeTo(new Vector2d(-35, 65))
-                .waitSeconds(1)
-                //insert marker to drop off sample (4)
+                .strafeTo(new Vector2d(55, 25))
+                /*.addTemporalMarker(() -> ostrich.ostrichDown())
+                .addTemporalMarker(() -> grabber.grabberClose())
+                .addTemporalMarker(() -> ostrich.ostrichUp()) */
+                .waitSeconds(0.5)
+
+                //picked up new sample (4)
+
+                .strafeTo(new Vector2d(55, 55))
+                //lift here
+                //.addTemporalMarker(() -> grabber.grabberOpen())
+                //lift down
+                .waitSeconds(0.5)
+
+                //dropped sample into bucket (4)
 
                 .build());
 

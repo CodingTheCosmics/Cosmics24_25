@@ -34,7 +34,7 @@ public class BlueAuto1_1 extends LinearOpMode {
             //init drivetrain
             OdometryDrive drive = new OdometryDrive(hardwareMap);
 
-            Pose2d startPose = new Pose2d(15, 65, 0);
+            Pose2d startPose = new Pose2d(6, 65, 0);
 
             drive.setPoseEstimate(startPose);
 
