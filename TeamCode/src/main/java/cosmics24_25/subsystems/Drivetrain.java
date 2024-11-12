@@ -50,7 +50,7 @@ public class Drivetrain {
 
 
 //teleop movement for mecanum drivetrain
-  public void move(float x, float y, float rx, boolean reset, boolean goFast) {
+  public void move(double x, double y, double rx, boolean reset, boolean goFast) {
 
       //reset button
       if (reset) {
@@ -66,7 +66,7 @@ public class Drivetrain {
 
 
       //decrease power
-      double reductionFactor = 0.25;
+      double reductionFactor = 0.5;
       double normalPower = 0.75;
 
 

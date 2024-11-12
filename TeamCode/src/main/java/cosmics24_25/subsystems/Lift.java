@@ -26,13 +26,13 @@ public class Lift {
 
 
     //Proportional: higher, faster
-    public static final double NEW_P = 20.000000;
+  /*  public static final double NEW_P = 40.000000;
 
     //Integral: Lower, less overshoot
     public static final double NEW_I = 0.01;
 
     //Derivative: rate of rate of change (acceleration) Keep 0
-    public static final double NEW_D = 1;
+    public static final double NEW_D = 1;n*/
 
 
 
@@ -58,14 +58,14 @@ public class Lift {
        PIDCoefficients pidOrig = lift.getPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // change coefficients using methods included with DcMotorEx class.
-       PIDCoefficients pidNew = new PIDCoefficients(NEW_P, NEW_I, NEW_D);
-       lift.setPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pidNew);
+      // PIDCoefficients pidNew = new PIDCoefficients(NEW_P, NEW_I, NEW_D);
+      // lift.setPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pidNew);
 
 
     }
 
 
-    public void goUp(float power)
+    public void goUp(double power)
     {
         lift.setPower(power);
 

@@ -16,7 +16,7 @@ public class MeepMeepTesting {
                 .setConstraints(30, 30, 5.82005, 4.6494, 10.51)
                 .build();
 
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(7, 65, Math.toRadians(-90)))
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(7, 65, Math.toRadians(0)))
                 .strafeTo(new Vector2d(55, 55))
                 //lift here
                 //.addTemporalMarker(() -> grabber.grabberOpen())
@@ -35,6 +35,7 @@ public class MeepMeepTesting {
                 //picked up new sample (3)
 
                 .strafeTo(new Vector2d(55, 55))
+                //.setTangent(Math.toRadians(180))
                 //lift here
                 //.addTemporalMarker(() -> grabber.grabberOpen())
                 //lift down
