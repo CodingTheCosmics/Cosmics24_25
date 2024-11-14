@@ -17,16 +17,29 @@ public class MeepMeepTesting {
                 .build();
 
         myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(7, 65, Math.toRadians(0)))
-                .strafeTo(new Vector2d(55, 55))
+                .splineToLinearHeading(new Pose2d(55, 55, Math.toRadians(45)), Math.toRadians(0))
                 //lift here
                 //.addTemporalMarker(() -> grabber.grabberOpen())
                 //lift down
+
+                //sample dropped into bucket (1)
+
+                .splineToLinearHeading(new Pose2d(50, 42, Math.toRadians(270)), Math.toRadians(0))
+                /*.addTemporalMarker(() -> ostrich.ostrichDown())
+                .addTemporalMarker(() -> grabber.grabberClose())
+                .addTemporalMarker(() -> ostrich.ostrichUp()) */
                 .waitSeconds(0.5)
+
+                //sample picked up from field (2)
+
+                .splineToLinearHeading(new Pose2d(55, 55, Math.toRadians(45)), Math.toRadians(0))
+                //lift here
+                //.addTemporalMarker(() -> grabber.grabberOpen())
+                //lift down
 
                 //sample dropped into bucket (2)
 
-               // .splineTo(new Vector2d(40, 25), Math.toRadians(0))
-                .strafeTo(new Vector2d(40, 25))
+                .splineToLinearHeading(new Pose2d(40, 25, Math.toRadians(0)), Math.toRadians(0))
                 /*.addTemporalMarker(() -> ostrich.ostrichDown())
                 .addTemporalMarker(() -> grabber.grabberClose())
                 .addTemporalMarker(() -> ostrich.ostrichUp()) */
@@ -34,8 +47,7 @@ public class MeepMeepTesting {
 
                 //picked up new sample (3)
 
-                .strafeTo(new Vector2d(55, 55))
-                //.setTangent(Math.toRadians(180))
+                .splineToLinearHeading(new Pose2d(55, 55, Math.toRadians(45)), Math.toRadians(0))
                 //lift here
                 //.addTemporalMarker(() -> grabber.grabberOpen())
                 //lift down
@@ -43,7 +55,7 @@ public class MeepMeepTesting {
 
                 //sample dropped into bucket (3)
 
-                .strafeTo(new Vector2d(55, 25))
+                .splineToLinearHeading(new Pose2d(55, 25, Math.toRadians(0)), Math.toRadians(0))
                 /*.addTemporalMarker(() -> ostrich.ostrichDown())
                 .addTemporalMarker(() -> grabber.grabberClose())
                 .addTemporalMarker(() -> ostrich.ostrichUp()) */
@@ -51,7 +63,7 @@ public class MeepMeepTesting {
 
                 //picked up new sample (4)
 
-                .strafeTo(new Vector2d(55, 55))
+                .splineToLinearHeading(new Pose2d(55, 55, Math.toRadians(45)), Math.toRadians(0))
                 //lift here
                 //.addTemporalMarker(() -> grabber.grabberOpen())
                 //lift down
