@@ -2,11 +2,9 @@ package cosmics24_25.subsystems;
 
 import static android.os.SystemClock.sleep;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDCoefficients;
 
@@ -18,7 +16,7 @@ public class Lift {
 
 
     //default power for overrides
-    public static final float DEFAULT_POWER = 0.5f;
+    public static final float DEFAULT_POWER = 0.6f;
 
     public static final float MAX_EXTEND = 2000f;
 
@@ -46,7 +44,7 @@ public class Lift {
 
         lift = (DcMotorEx) hardwareMap.dcMotor.get("LIFT");
 
-        lift.setDirection(DcMotorSimple.Direction.REVERSE);
+       // lift.setDirection(DcMotorSimple.Direction.REVERSE);
 
         lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         lift.setTargetPosition(0);
@@ -65,12 +63,11 @@ public class Lift {
     }
 
 
-    public void goUp(double power)
+    public void liftPower(double power)
     {
         lift.setPower(power);
 
     }
-
 
 
     //grabber arm move to position
@@ -78,14 +75,19 @@ public class Lift {
     {
         lift.setTargetPosition(targetPosition);
 
-        lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        lift.setPower(power);
+    }
 
-        //move
-        //for auto? - && ((LinearOpMode)opMode).opModeIsActive()
-        while (lift.isBusy())
-        {
-            lift.setPower(power);
-        }
+
+    public void liftUpHigh (float power)
+    {
+        lift.setTargetPosition(500);
+
+        lift.setPower(power);
+    }
+
+    public void liftDown ()
+    {
         lift.setPower(0);
     }
 

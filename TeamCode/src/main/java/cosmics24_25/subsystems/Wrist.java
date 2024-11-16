@@ -12,8 +12,8 @@ public class Wrist {
 
 
     //wrist moves!
-    public static final double WRIST_VERTICAL = 1;
-    public static final double WRIST_HORIZONTAL = 0;
+    public static final double WRIST_VERTICAL = 0;
+    public static final double WRIST_HORIZONTAL = 1;
 
 
     double currentPosition;

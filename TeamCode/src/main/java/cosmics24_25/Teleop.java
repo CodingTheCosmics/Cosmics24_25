@@ -1,17 +1,15 @@
 package cosmics24_25;
 
-import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
-import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuilder;
 
 import java.util.List;
 
@@ -32,6 +30,8 @@ public class Teleop extends LinearOpMode {
 
     GamepadEx gamepad1Ex;
     GamepadEx gamepad2Ex;
+
+    //StandardTrackingWheelLocalizer myLocalizer = new StandardTrackingWheelLocalizer(hardwareMap);
 
 
     @Override
@@ -57,7 +57,12 @@ public class Teleop extends LinearOpMode {
 
         //init new zoom zoom
         OdometryDrive drive = new OdometryDrive(hardwareMap);
+        drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         drive.setPoseEstimate(PoseStorage.currentPose);
+
+
+
+
 
         //trajectories for odometry
         TrajectorySequence goToBucket = drive.trajectorySequenceBuilder(PoseStorage.currentPose)
@@ -90,16 +95,17 @@ public class Teleop extends LinearOpMode {
             gamepad2Ex.readButtons();
 
 
+
             //LIFT
             //LIFTY LIFT
             if (gamepad2Ex.getButton(GamepadKeys.Button.Y)) {
-                lift.liftMovePosition(0.75f, 1900);
+                lift.liftUpHigh(Lift.DEFAULT_POWER);
             }
            if (gamepad2Ex.getButton(GamepadKeys.Button.A)) {
-                lift.goUp(0f);
+                lift.liftDown();
             }
 
-            lift.goUp(gamepad2Ex.getLeftY());
+            lift.liftPower(gamepad2Ex.getLeftY());
 
 
 
@@ -108,7 +114,7 @@ public class Teleop extends LinearOpMode {
             if (gamepad2Ex.getButton(GamepadKeys.Button.X)) {
                 grabber.grabberClose();
             }
-            if (gamepad2Ex.getButton(GamepadKeys.Button.A)) {
+            if (gamepad2Ex.getButton(GamepadKeys.Button.B)) {
                 grabber.grabberOpen();
             }
 
@@ -146,11 +152,24 @@ public class Teleop extends LinearOpMode {
 
 
             //DRIVETRAIN
-            dt.move(gamepad1Ex.getLeftX(), gamepad1Ex.getLeftY(), gamepad1Ex.getRightX(),
+           dt.move(gamepad1Ex.getLeftX(), -gamepad1Ex.getLeftY(), gamepad1Ex.getRightX(),
                     gamepad1Ex.getButton(GamepadKeys.Button.LEFT_STICK_BUTTON), gamepad1Ex.getButton(GamepadKeys.Button.RIGHT_BUMPER));
+        /*    Pose2d poseEstimate = drive.getPoseEstimate();
+
+            Vector2d input = new Vector2d(
+                    -gamepad1.left_stick_y,
+                    gamepad1.right_stick_x
+            ).rotated(-poseEstimate.getHeading());
+
+            drive.setWeightedDrivePower(
+                    new Pose2d(
+                            input.getX(),
+                            input.getY(),
+                            -gamepad1.right_stick_x
+                    )
+            ); */
 
             drive.update();
-            Pose2d myPose = drive.getPoseEstimate();
 
         /*    if (gamepad1.a) {
                 drive.followTrajectorySequence(goToBucket);
@@ -158,9 +177,9 @@ public class Teleop extends LinearOpMode {
 
 
                 //TELEMETRY
-                telemetry.addData("x", myPose.getX());
-                telemetry.addData("y", myPose.getY());
-                telemetry.addData("heading", myPose.getHeading());
+               // telemetry.addData("x", poseEstimate.getX());
+            //    telemetry.addData("y", poseEstimate.getY());
+             //   telemetry.addData("heading", poseEstimate.getHeading());
 
                 ostrich.ostrichTelemetry();
                 lift.liftTelemetry();

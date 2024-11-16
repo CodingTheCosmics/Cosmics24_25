@@ -16,7 +16,7 @@ public class MeepMeepTesting {
                 .setConstraints(30, 30, 5.82005, 4.6494, 10.51)
                 .build();
 
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(7, 65, Math.toRadians(0)))
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(30, 65, Math.toRadians(0)))
                 .splineToLinearHeading(new Pose2d(55, 55, Math.toRadians(45)), Math.toRadians(0))
                 //lift here
                 //.addTemporalMarker(() -> grabber.grabberOpen())

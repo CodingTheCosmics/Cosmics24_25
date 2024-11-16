@@ -18,7 +18,7 @@ public class Ostrich {
 
     public static final double OSTRICH_MID = 0.6;
 
-    public static final double OSTRICH_DOWN = 1;
+    public static final double OSTRICH_DOWN = 0.65;
 
     double currentPosition;
 
