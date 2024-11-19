@@ -18,7 +18,7 @@ import cosmics24_25.subsystems.Wrist;
 public class BlueAuto1_1 extends LinearOpMode {
 
     public static final double TIME = 0.5;
-    public static final float POWER = 0.7f;
+    public static final float POWER = 0.85f;
 
         @Override
         public void runOpMode() throws InterruptedException {
@@ -39,17 +39,17 @@ public class BlueAuto1_1 extends LinearOpMode {
 
 
             //predefined poses/vectors
-            Pose2d startPose = new Pose2d(30, 65, 0);
+            Pose2d startPose = new Pose2d(30.75, 58.25, 0);
 
-            Vector2d bucketVector = new Vector2d(56, 60);
+            Vector2d bucketVector = new Vector2d(58, 55.5);
 
-            Pose2d bucketPose = new Pose2d(54, 60, Math.toRadians(45));
+            Pose2d bucketPose = new Pose2d(57, 55.5, Math.toRadians(45));
 
-            Pose2d fieldPose1 = new Pose2d(50, 45, Math.toRadians(270));
-            Pose2d fieldPose2 = new Pose2d(40, 29, Math.toRadians(0));
-            Pose2d fieldPose3 = new Pose2d(50, 30, Math.toRadians(0));
+            Pose2d fieldPose1 = new Pose2d(50, 38.25, Math.toRadians(270));
+            Pose2d fieldPose2 = new Pose2d(42, 22.25, Math.toRadians(0));
+            Pose2d fieldPose3 = new Pose2d(53, 22, Math.toRadians(0));
 
-            Pose2d parkPose = new Pose2d(30, 0, Math.toRadians(0));
+            Pose2d parkPose = new Pose2d(30, -6.75, Math.toRadians(0));
 
 
 
@@ -83,7 +83,7 @@ public class BlueAuto1_1 extends LinearOpMode {
                     .waitSeconds(TIME)
 
                     .addTemporalMarker(() -> ostrich.ostrichUp())
-                    .waitSeconds(TIME)
+                   // .waitSeconds(TIME)
 
 
                     //sample picked up from field (2)
@@ -108,7 +108,7 @@ public class BlueAuto1_1 extends LinearOpMode {
                     .lineToLinearHeading(fieldPose2)
 
                     .addTemporalMarker(() -> wrist.wristVertical())
-                    .waitSeconds(TIME)
+                    .waitSeconds(TIME*0.5)
 
                     .addTemporalMarker(() -> ostrich.ostrichDown())
                     .waitSeconds(TIME)
@@ -117,7 +117,7 @@ public class BlueAuto1_1 extends LinearOpMode {
                     .waitSeconds(TIME)
 
                     .addTemporalMarker(() -> ostrich.ostrichUp())
-                    .waitSeconds(TIME)
+                    //.waitSeconds(TIME)
 
 
                     //picked up new sample (3)
@@ -139,7 +139,6 @@ public class BlueAuto1_1 extends LinearOpMode {
 
                     //drive to field
                     .UNSTABLE_addDisplacementMarkerOffset(2, () -> lift.liftDown())
-                    .addTemporalMarker(() -> wrist.wristVertical())
                     .lineToLinearHeading(fieldPose3)
 
                     .addTemporalMarker(() -> ostrich.ostrichDown())
@@ -149,7 +148,7 @@ public class BlueAuto1_1 extends LinearOpMode {
                     .waitSeconds(TIME)
 
                     .addTemporalMarker(() -> ostrich.ostrichUp())
-                    .waitSeconds(TIME)
+                    //.waitSeconds(TIME)
 
 
                     //picked up new sample (4)
@@ -157,7 +156,7 @@ public class BlueAuto1_1 extends LinearOpMode {
 
                     //drive to bucket
                     .addTemporalMarker(() -> lift.liftUpHigh(POWER))
-                    .addTemporalMarker(() -> wrist.wristHorizontal())
+
                     .lineToLinearHeading(bucketPose)
                     .waitSeconds(TIME)
 
@@ -179,6 +178,8 @@ public class BlueAuto1_1 extends LinearOpMode {
 
 
             if (!isStopRequested())
+                lift.liftTelemetry();
+                telemetry.update();
 
                 drive.followTrajectorySequence(trajSeq);
 

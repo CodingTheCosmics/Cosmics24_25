@@ -99,7 +99,7 @@ public class Teleop extends LinearOpMode {
             //LIFT
             //LIFTY LIFT
             if (gamepad2Ex.getButton(GamepadKeys.Button.Y)) {
-                lift.liftUpHigh(Lift.DEFAULT_POWER);
+                lift.liftUpHigh(1f);
             }
            if (gamepad2Ex.getButton(GamepadKeys.Button.A)) {
                 lift.liftDown();

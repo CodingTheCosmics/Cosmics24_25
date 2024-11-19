@@ -15,63 +15,135 @@ public class MeepMeepTesting {
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(30, 30, 5.82005, 4.6494, 10.51)
                 .build();
+        //predefined poses/vectors
+        Pose2d startPose = new Pose2d(-30.75, -58.25, Math.toRadians(180));
 
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(30, 65, Math.toRadians(0)))
-                .splineToLinearHeading(new Pose2d(55, 55, Math.toRadians(45)), Math.toRadians(0))
-                //lift here
+        Vector2d bucketVector = new Vector2d(-56, -55.25);
+
+        Pose2d bucketPose = new Pose2d(-56, -55.25, Math.toRadians(-135));
+
+        Pose2d fieldPose1 = new Pose2d(-50, -38.25, Math.toRadians(90));
+        Pose2d fieldPose2 = new Pose2d(-45, -22.25, Math.toRadians(180));
+        Pose2d fieldPose3 = new Pose2d(-53, -22.25, Math.toRadians(180));
+
+        Pose2d parkPose = new Pose2d(-30, 6.75, Math.toRadians(180));
+
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-30.75, -58.25, Math.toRadians(180)))
+
+                //lift and drive to bucket
+
+            //    .addDisplacementMarker(() -> lift.liftUpHigh(POWER))
+                .splineTo(bucketVector, Math.toRadians(-135))
+              //  .waitSeconds(TIME)
+
                 //.addTemporalMarker(() -> grabber.grabberOpen())
-                //lift down
+               // .waitSeconds(TIME)
+
 
                 //sample dropped into bucket (1)
 
-                .splineToLinearHeading(new Pose2d(50, 42, Math.toRadians(270)), Math.toRadians(0))
-                /*.addTemporalMarker(() -> ostrich.ostrichDown())
+
+                //lift down and drive to field
+               // .UNSTABLE_addDisplacementMarkerOffset(2,() -> lift.liftDown())
+                .splineToLinearHeading(fieldPose1, Math.toRadians(90))
+
+
+               /* .addTemporalMarker(() -> ostrich.ostrichDown())
+                .waitSeconds(TIME)
+
                 .addTemporalMarker(() -> grabber.grabberClose())
-                .addTemporalMarker(() -> ostrich.ostrichUp()) */
-                .waitSeconds(0.5)
+                .waitSeconds(TIME)
+
+                .addTemporalMarker(() -> ostrich.ostrichUp())
+                .waitSeconds(TIME) */
+
 
                 //sample picked up from field (2)
 
-                .splineToLinearHeading(new Pose2d(55, 55, Math.toRadians(45)), Math.toRadians(0))
-                //lift here
-                //.addTemporalMarker(() -> grabber.grabberOpen())
-                //lift down
+
+                //drive to bucket
+              //  .addTemporalMarker(() -> lift.liftUpHigh(POWER))
+                //  .waitSeconds(TIME*0.75)
+
+                .splineToLinearHeading(bucketPose, Math.toRadians(-135))
+              //  .waitSeconds(TIME)
+
+             //   .addTemporalMarker(() -> grabber.grabberOpen())
+             //   .waitSeconds(TIME)
+
 
                 //sample dropped into bucket (2)
 
-                .splineToLinearHeading(new Pose2d(40, 25, Math.toRadians(0)), Math.toRadians(0))
-                /*.addTemporalMarker(() -> ostrich.ostrichDown())
+
+                //lift down and drive to field
+              //  .UNSTABLE_addDisplacementMarkerOffset(2, () -> lift.liftDown())
+                .splineToLinearHeading(fieldPose2, Math.toRadians(180))
+
+                /*.addTemporalMarker(() -> wrist.wristVertical())
+                .waitSeconds(TIME*0.5)
+
+                .addTemporalMarker(() -> ostrich.ostrichDown())
+                .waitSeconds(TIME)
+
                 .addTemporalMarker(() -> grabber.grabberClose())
-                .addTemporalMarker(() -> ostrich.ostrichUp()) */
-                .waitSeconds(0.5)
+                .waitSeconds(TIME)
+
+                .addTemporalMarker(() -> ostrich.ostrichUp())
+                .waitSeconds(TIME) */
+
 
                 //picked up new sample (3)
 
-                .splineToLinearHeading(new Pose2d(55, 55, Math.toRadians(45)), Math.toRadians(0))
-                //lift here
-                //.addTemporalMarker(() -> grabber.grabberOpen())
-                //lift down
-                .waitSeconds(0.5)
+
+                //drive to bucket
+               // .addTemporalMarker(() -> lift.liftUpHigh(POWER))
+                //.addTemporalMarker(() -> wrist.wristHorizontal())
+                .splineToLinearHeading(bucketPose, Math.toRadians(-135))
+
+               // .waitSeconds(TIME)
+
+              //  .addTemporalMarker(() -> grabber.grabberOpen())
+             //   .waitSeconds(TIME)
+
 
                 //sample dropped into bucket (3)
 
-                .splineToLinearHeading(new Pose2d(55, 25, Math.toRadians(0)), Math.toRadians(0))
-                /*.addTemporalMarker(() -> ostrich.ostrichDown())
+
+                //drive to field
+               // .UNSTABLE_addDisplacementMarkerOffset(2, () -> lift.liftDown())
+               // .addTemporalMarker(() -> wrist.wristVertical())
+                .splineToLinearHeading(fieldPose3, Math.toRadians(180))
+
+               /* .addTemporalMarker(() -> ostrich.ostrichDown())
+                .waitSeconds(TIME)
+
                 .addTemporalMarker(() -> grabber.grabberClose())
-                .addTemporalMarker(() -> ostrich.ostrichUp()) */
-                .waitSeconds(0.5)
+                .waitSeconds(TIME)
+
+                .addTemporalMarker(() -> ostrich.ostrichUp())
+                .waitSeconds(TIME) */
+
 
                 //picked up new sample (4)
 
-                .splineToLinearHeading(new Pose2d(55, 55, Math.toRadians(45)), Math.toRadians(0))
-                //lift here
-                //.addTemporalMarker(() -> grabber.grabberOpen())
-                //lift down
-                .waitSeconds(0.5)
 
-                //dropped sample into bucket (4)
+                //drive to bucket
+                //.addTemporalMarker(() -> lift.liftUpHigh(POWER))
+                //.addTemporalMarker(() -> wrist.wristHorizontal())
+                .splineToLinearHeading(bucketPose, Math.toRadians(-135))
+                /*.waitSeconds(TIME)
+
+                .addTemporalMarker(() -> grabber.grabberOpen())
+                .waitSeconds(TIME)
+
+                //lift down
+                .UNSTABLE_addDisplacementMarkerOffset(2, () -> lift.liftDown())
+                .lineToLinearHeading(parkPose)
+
+                //dropped sample into bucket (4) */
 
                 .build());
+
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_INTO_THE_DEEP_JUICE_LIGHT)
                 .setDarkMode(false)
