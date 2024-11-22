@@ -49,7 +49,7 @@ public class BlueAuto1_1 extends LinearOpMode {
             Pose2d fieldPose2 = new Pose2d(42, 22.25, Math.toRadians(0));
             Pose2d fieldPose3 = new Pose2d(53, 22, Math.toRadians(0));
 
-            Pose2d parkPose = new Pose2d(30, -6.75, Math.toRadians(0));
+            Pose2d parkPose = new Pose2d(53, 22, Math.toRadians(0));
 
 
 
@@ -177,14 +177,15 @@ public class BlueAuto1_1 extends LinearOpMode {
                 wrist.wristHorizontal();
 
 
-            if (!isStopRequested())
-                lift.liftTelemetry();
-                telemetry.update();
+                if (!isStopRequested())
+                    lift.liftTelemetry();
+                    telemetry.update();
 
                 drive.followTrajectorySequence(trajSeq);
+                PoseStorage.currentPose = drive.getPoseEstimate();
 
 
-            PoseStorage.currentPose = drive.getPoseEstimate();
+
 
         }
     }

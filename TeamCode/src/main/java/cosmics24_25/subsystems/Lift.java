@@ -81,9 +81,11 @@ public class Lift {
 
     public void liftUpHigh (float power)
     {
-        lift.setTargetPosition(350);
+        lift.setTargetPosition(150);
 
         lift.setPower(power);
+
+
     }
 
     public void liftDown ()
@@ -93,7 +95,7 @@ public class Lift {
 
 
     //arm ONLY sleep
-    public void LIFTSLEEP (int time)
+    public void liftSleep (int time)
     {
         sleep(time);
     }

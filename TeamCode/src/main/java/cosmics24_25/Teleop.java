@@ -1,5 +1,6 @@
 package cosmics24_25;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
@@ -9,8 +10,10 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
+import org.firstinspires.ftc.teamcode.drive.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cosmics24_25.subsystems.Drivetrain;
@@ -31,7 +34,10 @@ public class Teleop extends LinearOpMode {
     GamepadEx gamepad1Ex;
     GamepadEx gamepad2Ex;
 
-    //StandardTrackingWheelLocalizer myLocalizer = new StandardTrackingWheelLocalizer(hardwareMap);
+
+    public static final double TIME = 0.5;
+    public static final float POWER = 0.65f;
+
 
 
     @Override
@@ -57,22 +63,14 @@ public class Teleop extends LinearOpMode {
 
         //init new zoom zoom
         OdometryDrive drive = new OdometryDrive(hardwareMap);
-        drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        drive.setPoseEstimate(PoseStorage.currentPose);
+        drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
+      //  drive.setPoseEstimate(PoseStorage.currentPose);
 
 
 
         //trajectories for odometry
-        TrajectorySequence goToBucket = drive.trajectorySequenceBuilder(PoseStorage.currentPose)
-            .splineTo(new Vector2d(55, 55), Math.toRadians(45))
-            //lift here
-            .addTemporalMarker(() -> grabber.grabberOpen())
-            //lift down
-            .waitSeconds(0.5)
-
-            .build();
 
         gamepad1Ex = new GamepadEx(gamepad1);
         gamepad2Ex = new GamepadEx(gamepad2);
@@ -98,14 +96,20 @@ public class Teleop extends LinearOpMode {
 
             //LIFT
             //LIFTY LIFT
-            if (gamepad2Ex.getButton(GamepadKeys.Button.Y)) {
-                lift.liftUpHigh(1f);
-            }
-           if (gamepad2Ex.getButton(GamepadKeys.Button.A)) {
-                lift.liftDown();
-            }
+           /* if (gamepad1Ex.getButton(GamepadKeys.Button.Y) || gamepad2Ex.getButton(GamepadKeys.Button.Y)) {
 
-            lift.liftPower(gamepad2Ex.getLeftY());
+                grabber.grabberClose();
+                wrist.wristHorizontal();
+
+                lift.liftUpHigh(POWER);
+                lift.liftSleep(5000);
+
+
+                //grabber.grabberOpen();
+
+            } */
+
+            lift.liftPower(-gamepad2Ex.getRightY()); //|| -gamepad2Ex.getLeftY());
 
 
 
@@ -129,13 +133,6 @@ public class Teleop extends LinearOpMode {
                 wrist.wristVertical();
             }
 
-            //full rotation
-           /* if (gamepad1.left_trigger >= 0.5f) {
-                wrist.rotateLeft();
-            }
-            if (gamepad1.right_trigger >= 0.5f) {
-                wrist.rotateLeft();
-            } */
 
 
             //OSTRICH
@@ -151,35 +148,19 @@ public class Teleop extends LinearOpMode {
             }
 
 
+
+
             //DRIVETRAIN
            dt.move(gamepad1Ex.getLeftX(), -gamepad1Ex.getLeftY(), gamepad1Ex.getRightX(),
-                    gamepad1Ex.getButton(GamepadKeys.Button.LEFT_STICK_BUTTON), gamepad1Ex.getButton(GamepadKeys.Button.RIGHT_BUMPER));
-        /*    Pose2d poseEstimate = drive.getPoseEstimate();
+                   gamepad1Ex.getButton(GamepadKeys.Button.LEFT_STICK_BUTTON), gamepad1Ex.getButton(GamepadKeys.Button.RIGHT_BUMPER));
 
-            Vector2d input = new Vector2d(
-                    -gamepad1.left_stick_y,
-                    gamepad1.right_stick_x
-            ).rotated(-poseEstimate.getHeading());
 
-            drive.setWeightedDrivePower(
-                    new Pose2d(
-                            input.getX(),
-                            input.getY(),
-                            -gamepad1.right_stick_x
-                    )
-            ); */
 
-            drive.update();
+           // drive.update();
 
-        /*    if (gamepad1.a) {
-                drive.followTrajectorySequence(goToBucket);
-            } */
 
 
                 //TELEMETRY
-               // telemetry.addData("x", poseEstimate.getX());
-            //    telemetry.addData("y", poseEstimate.getY());
-             //   telemetry.addData("heading", poseEstimate.getHeading());
 
                 ostrich.ostrichTelemetry();
                 lift.liftTelemetry();
