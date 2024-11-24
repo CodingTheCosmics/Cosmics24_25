@@ -1,5 +1,6 @@
 package GAP24_25;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -7,6 +8,7 @@ import GAP24_25.claw.Claw;
 
 
 @TeleOp
+@Disabled
 public class TeleopGAP extends LinearOpMode {
 
 

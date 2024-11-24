@@ -38,7 +38,7 @@ import cosmics24_25.subsystems.OdometryDrive;
  *
  * Uncomment the @Disabled tag below to use this opmode.
  */
-//@Disabled
+@Disabled
 @Config
 @TeleOp(group = "drive")
 public class MotorDirectionDebugger extends LinearOpMode {
