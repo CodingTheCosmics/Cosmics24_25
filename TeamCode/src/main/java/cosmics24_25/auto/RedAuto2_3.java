@@ -3,20 +3,23 @@ package cosmics24_25.auto;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 import cosmics24_25.subsystems.Grabber;
 import cosmics24_25.subsystems.Lift;
 import cosmics24_25.subsystems.OdometryDrive;
 import cosmics24_25.subsystems.Ostrich;
+import cosmics24_25.subsystems.PoseStorage;
 import cosmics24_25.subsystems.Wrist;
 
-import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 @Autonomous
+public class RedAuto2_3 extends LinearOpMode {
 
-public class BlueAuto2_3 extends LinearOpMode {
+    public static final double TIME = 0.5;
+    public static final float POWER = 0.8f;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -32,26 +35,42 @@ public class BlueAuto2_3 extends LinearOpMode {
         //init ostrich <3
         Ostrich ostrich = new Ostrich(hardwareMap, this);
 
+        //init drivetrain
         OdometryDrive drive = new OdometryDrive(hardwareMap);
 
-        Pose2d startPose = new Pose2d(-18, 58.25, Math.toRadians(-90));
+
+
+        //predefined poses/vectors
+
+        Pose2d startPose = new Pose2d(18, -58.25, Math.toRadians(90));
+
+
 
         drive.setPoseEstimate(startPose);
 
         TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
+                //park
                 //hang specimen and park
-                .strafeTo(new Vector2d(-40, 58.25))
+                .strafeTo(new Vector2d(40, -58.25))
                 .waitSeconds(30)
+
 
                 .build();
 
         waitForStart();
-
         grabber.grabberOpen();
         ostrich.ostrichUp();
         wrist.wristHorizontal();
 
+
         if (!isStopRequested())
-            drive.followTrajectorySequence(trajSeq);
+            lift.liftTelemetry();
+        telemetry.update();
+
+        drive.followTrajectorySequence(trajSeq);
+
+
+        PoseStorage.currentPose = drive.getPoseEstimate();
+
     }
 }

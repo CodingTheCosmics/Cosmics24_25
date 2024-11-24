@@ -80,6 +80,7 @@ public class Teleop extends LinearOpMode {
         gamepad2Ex = new GamepadEx(gamepad2);
         wrist.wristHorizontal();
         grabber.grabberOpen();
+        ostrich.ostrichUp();
 
 
         waitForStart();
