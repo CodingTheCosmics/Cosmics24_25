@@ -62,11 +62,15 @@ public class Teleop extends LinearOpMode {
         distanceSensor how_far = new distanceSensor(hardwareMap, this);
 
         //init new zoom zoom
-        OdometryDrive drive = new OdometryDrive(hardwareMap);
-        drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+      //  OdometryDrive drive = new OdometryDrive(hardwareMap);
+       // drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        dt.backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODERS);
+        dt.frontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODERS);
+        dt.backRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODERS);
+        dt.frontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODERS);
 
 
-      //  drive.setPoseEstimate(PoseStorage.currentPose);
+      //  drive.setPoseEstimate(PoseStorage.currentPose
 
 
 
@@ -74,6 +78,8 @@ public class Teleop extends LinearOpMode {
 
         gamepad1Ex = new GamepadEx(gamepad1);
         gamepad2Ex = new GamepadEx(gamepad2);
+        wrist.wristHorizontal();
+        grabber.grabberOpen();
 
 
         waitForStart();
@@ -109,7 +115,7 @@ public class Teleop extends LinearOpMode {
 
             } */
 
-            lift.liftPower(-gamepad2Ex.getRightY()); //|| -gamepad2Ex.getLeftY());
+            lift.liftPower(-gamepad2Ex.getLeftY()); //|| -gamepad2Ex.getLeftY());
 
 
 

@@ -83,7 +83,7 @@ public class RedAuto1_1 extends LinearOpMode {
                 .waitSeconds(TIME)
 
                 .addTemporalMarker(() -> ostrich.ostrichUp())
-                .waitSeconds(TIME)
+               // .waitSeconds(TIME)
 
 
                 //sample picked up from field (2)
@@ -117,7 +117,7 @@ public class RedAuto1_1 extends LinearOpMode {
                 .waitSeconds(TIME)
 
                 .addTemporalMarker(() -> ostrich.ostrichUp())
-                .waitSeconds(TIME)
+               // .waitSeconds(TIME)
 
 
                 //picked up new sample (3)
@@ -142,6 +142,7 @@ public class RedAuto1_1 extends LinearOpMode {
                 .lineToLinearHeading(fieldPose3)
 
 
+
                 .addTemporalMarker(() -> ostrich.ostrichDown())
                 .waitSeconds(TIME)
 
@@ -150,6 +151,7 @@ public class RedAuto1_1 extends LinearOpMode {
 
                 .addTemporalMarker(() -> ostrich.ostrichUp())
                 .waitSeconds(TIME)
+
 
 
                 //picked up new sample (4)
