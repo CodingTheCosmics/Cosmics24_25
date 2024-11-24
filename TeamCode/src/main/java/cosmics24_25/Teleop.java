@@ -159,7 +159,7 @@ public class Teleop extends LinearOpMode {
 
             //DRIVETRAIN
            dt.move(gamepad1Ex.getLeftX(), -gamepad1Ex.getLeftY(), gamepad1Ex.getRightX(),
-                   gamepad1Ex.getButton(GamepadKeys.Button.LEFT_STICK_BUTTON),
+                   gamepad1Ex.getButton(GamepadKeys.Button.B),
                    gamepad1Ex.getButton(GamepadKeys.Button.RIGHT_BUMPER));
 
 
