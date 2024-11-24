@@ -66,8 +66,8 @@ public class Drivetrain {
 
 
       //decrease power
-      double reductionFactor = 0.3;
-      double normalPower = 0.75;
+      double reductionFactor = 0.4;
+      double normalPower = 0.65;
 
 
       //to go faster
