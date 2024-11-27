@@ -49,8 +49,10 @@ public class RedAuto2_3 extends LinearOpMode {
         drive.setPoseEstimate(startPose);
 
         TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
-                //park
+
                 //hang specimen and park
+
+
                 .strafeTo(new Vector2d(40, -58.25))
                 .waitSeconds(30)
 

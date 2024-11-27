@@ -16,7 +16,7 @@ public class Lift {
 
 
     //default power for overrides
-    public static final float DEFAULT_POWER = 0.6f;
+    public static final float DEFAULT_POWER = 1f;
 
     public static final float MAX_EXTEND = 2000f;
 
@@ -24,7 +24,7 @@ public class Lift {
 
 
     //Proportional: higher, faster
-    public static final double NEW_P = 30.000000;
+    public static final double NEW_P = 15.000000;
 
     //Integral: Lower, less overshoot
     public static final double NEW_I = 0.01;
@@ -49,15 +49,16 @@ public class Lift {
         lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         lift.setTargetPosition(0);
 
-        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
 
 
 
       // PIDCoefficients pidOrig = lift.getPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // change coefficients using methods included with DcMotorEx class.
-       //PIDCoefficients pidNew = new PIDCoefficients(NEW_P, NEW_I, NEW_D);
-       //lift.setPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pidNew);
+     //  PIDCoefficients pidNew = new PIDCoefficients(NEW_P, NEW_I, NEW_D);
+   //    lift.setPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pidNew);
 
 
     }
@@ -73,20 +74,44 @@ public class Lift {
     //grabber arm move to position
     public void liftMovePosition (float power, int targetPosition)
     {
+
         lift.setTargetPosition(targetPosition);
+        lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         lift.setPower(power);
     }
 
 
-    public void liftUpHigh (float power)
+    public void liftUpHigh ()
     {
-        lift.setTargetPosition(150);
 
-        lift.setPower(power);
+        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lift.setTargetPosition(3000);
+        lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        lift.setPower(DEFAULT_POWER);
 
 
     }
+
+    public void liftUpMedium ()
+    {
+        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lift.setTargetPosition(1750);
+        lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        lift.setPower(DEFAULT_POWER);
+
+    }
+
+    public void liftReset ()
+    {
+        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODERS);
+    }
+
+
+
 
     public void liftDown ()
     {

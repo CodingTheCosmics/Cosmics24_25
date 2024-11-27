@@ -18,7 +18,7 @@ import cosmics24_25.subsystems.Wrist;
 public class BlueAuto1_1 extends LinearOpMode {
 
     public static final double TIME = 0.5;
-    public static final float POWER = 0.85f;
+
 
         @Override
         public void runOpMode() throws InterruptedException {
@@ -58,9 +58,11 @@ public class BlueAuto1_1 extends LinearOpMode {
 
             TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
 
+                    //cycle to buckets
+
                     //lift and drive to bucket
 
-                    .addDisplacementMarker(() -> lift.liftUpHigh(POWER))
+                    .addDisplacementMarker(() -> lift.liftUpHigh())
                     .splineTo(bucketVector, Math.toRadians(45))
                     .waitSeconds(TIME)
 
@@ -73,6 +75,7 @@ public class BlueAuto1_1 extends LinearOpMode {
 
                     //lift down and drive to field
                     .UNSTABLE_addDisplacementMarkerOffset(2,() -> lift.liftDown())
+                    .addTemporalMarker(() -> lift.liftReset())
                     .lineToLinearHeading(fieldPose1)
 
 
@@ -90,7 +93,7 @@ public class BlueAuto1_1 extends LinearOpMode {
 
 
                     //drive to bucket
-                    .addTemporalMarker(() -> lift.liftUpHigh(POWER))
+                    .addTemporalMarker(() -> lift.liftUpHigh())
                     .waitSeconds(TIME*0.75)
 
                     .lineToLinearHeading(bucketPose)
@@ -105,6 +108,7 @@ public class BlueAuto1_1 extends LinearOpMode {
 
                     //lift down and drive to field
                     .UNSTABLE_addDisplacementMarkerOffset(2, () -> lift.liftDown())
+                    .addTemporalMarker(() -> lift.liftReset())
                     .lineToLinearHeading(fieldPose2)
 
                     .addTemporalMarker(() -> wrist.wristVertical())
@@ -124,7 +128,7 @@ public class BlueAuto1_1 extends LinearOpMode {
 
 
                     //drive to bucket
-                    .addTemporalMarker(() -> lift.liftUpHigh(POWER))
+                    .addTemporalMarker(() -> lift.liftUpHigh())
                     .addTemporalMarker(() -> wrist.wristHorizontal())
                     .lineToLinearHeading(bucketPose)
 
@@ -139,6 +143,7 @@ public class BlueAuto1_1 extends LinearOpMode {
 
                     //drive to field
                     .UNSTABLE_addDisplacementMarkerOffset(2, () -> lift.liftDown())
+                    .addTemporalMarker(() -> lift.liftReset())
                     .lineToLinearHeading(fieldPose3)
 
                     .addTemporalMarker(() -> ostrich.ostrichDown())
@@ -155,7 +160,7 @@ public class BlueAuto1_1 extends LinearOpMode {
 
 
                     //drive to bucket
-                    .addTemporalMarker(() -> lift.liftUpHigh(POWER))
+                    .addTemporalMarker(() -> lift.liftUpHigh())
 
                     .lineToLinearHeading(bucketPose)
                     .waitSeconds(TIME)
@@ -166,6 +171,7 @@ public class BlueAuto1_1 extends LinearOpMode {
                     //lift down
 
                     .UNSTABLE_addDisplacementMarkerOffset(2, () -> lift.liftDown())
+                    .addTemporalMarker(() -> lift.liftReset())
                     .lineToLinearHeading(parkPose)
 
                     //dropped sample into bucket (4)

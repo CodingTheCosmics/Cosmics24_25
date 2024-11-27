@@ -22,6 +22,9 @@ public class BlueAuto2_2 extends LinearOpMode {
         drive.setPoseEstimate(startPose);
 
         TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
+
+                //place specimen and drop samples in human player zone
+
                 //go to bar
                 .splineTo(new Vector2d(-7, 35), Math.toRadians(-90))
                 .waitSeconds(1)

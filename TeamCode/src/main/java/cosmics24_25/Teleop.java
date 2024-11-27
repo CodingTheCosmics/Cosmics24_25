@@ -36,7 +36,7 @@ public class Teleop extends LinearOpMode {
 
 
     public static final double TIME = 0.5;
-    public static final float POWER = 0.65f;
+    public static final float POWER = 1f;
 
 
 
@@ -103,20 +103,32 @@ public class Teleop extends LinearOpMode {
 
             //LIFT
             //LIFTY LIFT
-           /* if (gamepad1Ex.getButton(GamepadKeys.Button.Y) || gamepad2Ex.getButton(GamepadKeys.Button.Y)) {
+            if (gamepad2Ex.getButton(GamepadKeys.Button.Y)) {
+
+                lift.liftUpHigh();
+                lift.liftSleep(5000);
+
+            }
+
+            if (gamepad2Ex.getButton(GamepadKeys.Button.RIGHT_STICK_BUTTON)) {
+
+                lift.liftReset();
+
+            }
+
+            if (gamepad2Ex.getButton(GamepadKeys.Button.A)) {
 
                 grabber.grabberClose();
                 wrist.wristHorizontal();
+                lift.liftUpMedium();
+                lift.liftSleep(2000);
 
-                lift.liftUpHigh(POWER);
-                lift.liftSleep(5000);
+                grabber.grabberOpen();
+
+            }
 
 
-                //grabber.grabberOpen();
-
-            } */
-
-            lift.liftPower(-gamepad2Ex.getLeftY()); //|| -gamepad2Ex.getLeftY());
+            lift.liftPower(gamepad2Ex.getLeftY()); //|| -gamepad2Ex.getLeftY());
 
 
 
@@ -173,6 +185,8 @@ public class Teleop extends LinearOpMode {
                 ostrich.ostrichTelemetry();
                 lift.liftTelemetry();
                 how_far.howFarTelemetry();
+
+              //  telemetry.addData("b", if gamepad2.b==isPresseed);
 
                 telemetry.update();
 

@@ -40,6 +40,8 @@ public class BlueAuto2_3 extends LinearOpMode {
 
         TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
                 //hang specimen and park
+
+
                 .strafeTo(new Vector2d(-40, 58.25))
                 .waitSeconds(30)
 

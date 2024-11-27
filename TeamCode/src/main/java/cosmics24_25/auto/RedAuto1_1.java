@@ -58,9 +58,11 @@ public class RedAuto1_1 extends LinearOpMode {
 
         TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
 
+                //cycle to buckets
+
                 //lift and drive to bucket
 
-                .addDisplacementMarker(() -> lift.liftUpHigh(POWER))
+                .addDisplacementMarker(() -> lift.liftUpHigh())
                 .splineTo(bucketVector, Math.toRadians(-135))
                 .waitSeconds(TIME)
 
@@ -90,7 +92,7 @@ public class RedAuto1_1 extends LinearOpMode {
 
 
                 //drive to bucket
-                .addTemporalMarker(() -> lift.liftUpHigh(POWER))
+                .addTemporalMarker(() -> lift.liftUpHigh())
                 .waitSeconds(TIME*0.75)
 
                 .lineToLinearHeading(bucketPose)
@@ -124,7 +126,7 @@ public class RedAuto1_1 extends LinearOpMode {
 
 
                 //drive to bucket
-                .addTemporalMarker(() -> lift.liftUpHigh(POWER))
+                .addTemporalMarker(() -> lift.liftUpHigh())
                 .addTemporalMarker(() -> wrist.wristHorizontal())
                 .lineToLinearHeading(bucketPose)
 
@@ -158,7 +160,7 @@ public class RedAuto1_1 extends LinearOpMode {
 
 
                 //drive to bucket
-                .addTemporalMarker(() -> lift.liftUpHigh(POWER))
+                .addTemporalMarker(() -> lift.liftUpHigh())
 
                 .lineToLinearHeading(bucketPose)
                 .waitSeconds(TIME)
