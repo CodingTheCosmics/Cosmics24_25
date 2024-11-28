@@ -183,7 +183,6 @@ public class BlueAuto1_1 extends LinearOpMode {
                 ostrich.ostrichUp();
                 wrist.wristHorizontal();
 
-
                 if (!isStopRequested())
                     lift.liftTelemetry();
                     telemetry.update();

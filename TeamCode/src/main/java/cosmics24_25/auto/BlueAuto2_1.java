@@ -6,70 +6,150 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import cosmics24_25.subsystems.Grabber;
+import cosmics24_25.subsystems.Lift;
 import cosmics24_25.subsystems.OdometryDrive;
+import cosmics24_25.subsystems.Ostrich;
+import cosmics24_25.subsystems.Wrist;
+
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 @Autonomous
-@Disabled
+//@Disabled
 public class BlueAuto2_1 extends LinearOpMode {
+
+    public static final double TIME = 0.5;
 
     @Override
     public void runOpMode() throws InterruptedException {
+        //init lifty lifty lifty
+        Lift lift = new Lift(hardwareMap, this);
+
+        //init grab crab
+        Grabber grabber = new Grabber(hardwareMap, this);
+
+        //init wrist
+        Wrist wrist = new Wrist(hardwareMap, this);
+
+        //init ostrich <3
+        Ostrich ostrich = new Ostrich(hardwareMap, this);
+
+        //init drivetrain
         OdometryDrive drive = new OdometryDrive(hardwareMap);
 
-        Pose2d startPose = new Pose2d(-7, 65, Math.toRadians(-90));
+
+        Pose2d startPose = new Pose2d(-15.75, 58.25, Math.toRadians(90));
+
+        Pose2d specimenPose1 = new Pose2d(-15.75, 40.25, Math.toRadians(90));
+        Pose2d specimenPose2 = new Pose2d(-18.75, 40.25, Math.toRadians(90));
+        Pose2d specimenPose3 = new Pose2d(-21.75, 40.25, Math.toRadians(90));
+
+        Pose2d fieldPose1 = new Pose2d(-50, 38.25, Math.toRadians(270));
+        Pose2d fieldPose2 = new Pose2d(-42, 22.25, Math.toRadians(0));
+       // Pose2d fieldPose3 = new Pose2d(-53, 22, Math.toRadians(0));
+
+        Pose2d observationPose = new Pose2d(-58, 50.25, Math.toRadians(-90));
+
+        Pose2d parkPose = new Pose2d(-40, 58.25, Math.toRadians(-90));
 
         drive.setPoseEstimate(startPose);
+
 
         TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
 
                 //cycle specimen
 
-                //go to bar
-                .splineTo(new Vector2d(-7, 35), Math.toRadians(-90))
-                .waitSeconds(1)
-                //insert marker to hang specimen (1)
+                //go to bar and hang specimen
+                .addTemporalMarker(() -> lift.liftUpMedium())
+                .lineToLinearHeading(specimenPose1)
 
-                //go to samples on field
-                .strafeTo(new Vector2d(-45, 40))
-                .waitSeconds(1)
-                //insert marker to pick up new sample (2)
+                //drive to pickup sample
+                .addTemporalMarker(() -> grabber.grabberOpen())
+                .UNSTABLE_addDisplacementMarkerOffset(2, () -> lift.liftDown())
+                .addTemporalMarker(() -> lift.liftReset())
+                .lineToLinearHeading(fieldPose1)
 
-                //go to human player zone
-                .splineTo(new Vector2d(-35, 65), Math.toRadians(-180))
-                .waitSeconds(1)
-                //insert marker to drop sample into human player zone (2)
+                //pick up sample
+                .addTemporalMarker(() -> ostrich.ostrichDown())
+                .waitSeconds(TIME)
 
-                //go back to sample on field
-                .strafeTo(new Vector2d(-45, 25))
-                .waitSeconds(1)
-                //insert marker to get new sample (3)
+                .addTemporalMarker(() -> grabber.grabberClose())
+                .waitSeconds(TIME)
 
-                //go back to human player station
-                .strafeTo(new Vector2d(-35, 65))
-                .waitSeconds(1)
-                //insert marker to drop new sample (3) and pick up specimen (2)
+                .addTemporalMarker(() -> ostrich.ostrichUp())
 
-                //go to bar
-                .splineTo(new Vector2d(-7, 35), Math.toRadians(-90))
-                .waitSeconds(1)
-                //insert marker to hang specimen (2)
+                //drive to observation zone
+                .lineToLinearHeading(observationPose)
 
-                //go to sample on field
-                .strafeTo(new Vector2d(-35, 35))
-                .splineTo(new Vector2d(-55, 25), Math.toRadians(90))
-                .waitSeconds(1)
-                //insert marker to pick up sample (4)
+                //drop sample
+                .addTemporalMarker(() -> ostrich.ostrichDown())
+                .addTemporalMarker(() -> grabber.grabberOpen())
+                .waitSeconds(TIME*0.25)
+                .addTemporalMarker(() -> ostrich.ostrichUp())
 
-                //go to human player station
-                .strafeTo(new Vector2d(-35, 65))
-                .waitSeconds(1)
-                //insert marker to drop off sample (4) and pick up specimen (3)
 
-                //go to bar
-                .splineTo(new Vector2d(-7, 35), Math.toRadians(-90))
-                .waitSeconds(1)
-                //insert marker to hang specimen (3)
+
+                //drive to sample
+                .lineToLinearHeading(fieldPose2)
+
+                //pick up new sample (2)
+                .addTemporalMarker(() -> wrist.wristVertical())
+                .waitSeconds(TIME*0.5)
+
+                .addTemporalMarker(() -> ostrich.ostrichDown())
+                .waitSeconds(TIME)
+
+                .addTemporalMarker(() -> grabber.grabberClose())
+                .waitSeconds(TIME)
+
+                .addTemporalMarker(() -> ostrich.ostrichUp())
+
+                //drive to observation zone
+                .lineToLinearHeading(observationPose)
+
+                //drop sample (2)
+                .addTemporalMarker(() -> ostrich.ostrichDown())
+                .addTemporalMarker(() -> grabber.grabberOpen())
+                .waitSeconds(TIME*0.25)
+
+                //pick up specimen (2)
+                .strafeLeft(3)
+                .addTemporalMarker(() -> grabber.grabberClose())
+                .addTemporalMarker(() -> ostrich.ostrichUp())
+
+
+
+                //drive to hang specimen (2)
+                .addTemporalMarker(() -> lift.liftUpMedium())
+                .lineToLinearHeading(specimenPose2)
+
+                //drive to pickup sample
+                .addTemporalMarker(() -> grabber.grabberOpen())
+                .UNSTABLE_addDisplacementMarkerOffset(2, () -> lift.liftDown())
+                .addTemporalMarker(() -> lift.liftReset())
+                .lineToLinearHeading(observationPose)
+
+
+
+                //pick up specimen (3)
+                .addTemporalMarker(() -> ostrich.ostrichDown())
+                .addTemporalMarker(() -> grabber.grabberClose())
+                .addTemporalMarker(() -> ostrich.ostrichUp())
+
+                //drive to hang specimen (3)
+                .addTemporalMarker(() -> lift.liftUpMedium())
+                .lineToLinearHeading(specimenPose3)
+
+
+
+                //park
+                .addTemporalMarker(() -> grabber.grabberOpen())
+                .UNSTABLE_addDisplacementMarkerOffset(2, () -> lift.liftDown())
+                .addTemporalMarker(() -> lift.liftReset())
+                .lineToLinearHeading(parkPose)
+
+
+
 
                 .build();
 

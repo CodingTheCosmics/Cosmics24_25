@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import cosmics24_25.subsystems.OdometryDrive;
 
 @Autonomous
-@Disabled
+//@Disabled
 public class RedAuto1_2 extends LinearOpMode {
 
     @Override
