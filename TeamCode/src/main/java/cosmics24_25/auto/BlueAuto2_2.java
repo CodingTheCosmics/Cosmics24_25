@@ -9,6 +9,7 @@ import cosmics24_25.subsystems.Grabber;
 import cosmics24_25.subsystems.Lift;
 import cosmics24_25.subsystems.OdometryDrive;
 import cosmics24_25.subsystems.Ostrich;
+import cosmics24_25.subsystems.PoseStorage;
 import cosmics24_25.subsystems.Wrist;
 
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
@@ -54,5 +55,6 @@ public class BlueAuto2_2 extends LinearOpMode {
 
         if (!isStopRequested())
             drive.followTrajectorySequence(trajSeq);
+            PoseStorage.currentPose = drive.getPoseEstimate();
     }
 }

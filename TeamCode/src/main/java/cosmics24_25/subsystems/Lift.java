@@ -86,7 +86,7 @@ public class Lift {
     {
 
         lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        lift.setTargetPosition(3000);
+        lift.setTargetPosition(3100);
         lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         lift.setPower(DEFAULT_POWER);

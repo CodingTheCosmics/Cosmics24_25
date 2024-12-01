@@ -43,11 +43,11 @@ public class BlueAuto1_2 extends LinearOpMode {
 
         Pose2d bucketPose = new Pose2d(57, 55.5, Math.toRadians(45));
 
-        Pose2d fieldPose1 = new Pose2d(50, 38.25, Math.toRadians(270));
-        Pose2d fieldPose2 = new Pose2d(42, 22.25, Math.toRadians(0));
-        Pose2d fieldPose3 = new Pose2d(53, 22, Math.toRadians(0));
+        Pose2d fieldPose1 = new Pose2d(50, 35.5, Math.toRadians(270));
+        Pose2d fieldPose2 = new Pose2d(42, 21.5, Math.toRadians(0));
+        Pose2d fieldPose3 = new Pose2d(53, 23.25, Math.toRadians(0));
 
-        Pose2d parkPose = new Pose2d(53, 22, Math.toRadians(0));
+        Pose2d parkPose = fieldPose3;
 
         drive.setPoseEstimate(startPose);
 
