@@ -63,7 +63,10 @@ public class Teleop extends LinearOpMode {
 
         drive.setPoseEstimate(PoseStorage.currentPose);
 
-        Pose2d bucketPose = new Pose2d(57, 55.5, Math.toRadians(45));
+        Pose2d bucketPoseBlue = new Pose2d(54, 54.5, Math.toRadians(45));
+        Pose2d bucketPoseRed = new Pose2d(-54, -54.5, Math.toRadians(-135));
+        Pose2d backUpBlue = new Pose2d(51, 50.5, Math.toRadians(45));
+        Pose2d backUpRed = new Pose2d(-51, -50.5, Math.toRadians(-135));
 
 
 
@@ -168,34 +171,73 @@ public class Teleop extends LinearOpMode {
             Pose2d poseEstimate = drive.getPoseEstimate();
 
             Vector2d input = new Vector2d(
-                    -gamepad1.left_stick_y,
-                    -gamepad1.left_stick_x
+                    -gamepad1.left_stick_y*0.65,
+                    -gamepad1.left_stick_x*0.65
             ).rotated(-poseEstimate.getHeading());
 
             drive.setWeightedDrivePower(
                     new Pose2d(
                             input.getX(),
                             input.getY(),
-                            -gamepad1.right_stick_x
+                            -gamepad1.right_stick_x*0.5
                     )
             );
 
-            if (gamepad1.a) {
+            //drive to bucket blue
+            if (gamepad1.x) {
 
                 TrajectorySequence bucketTraj = drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .addDisplacementMarker(() -> lift.liftUpHigh())
-                        .lineToLinearHeading(bucketPose)
+                        .lineToLinearHeading(bucketPoseBlue)
                         .waitSeconds(TIME)
 
                         .addTemporalMarker(() -> grabber.grabberOpen())
                         .waitSeconds(TIME)
 
+                        .UNSTABLE_addDisplacementMarkerOffset(2, () -> lift.liftDown())
+                        .addTemporalMarker(() -> lift.liftReset())
+                        .lineToLinearHeading(backUpBlue)
+
                         .build();
 
                 drive.followTrajectorySequence(bucketTraj);
                 PoseStorage.currentPose = drive.getPoseEstimate();
+                drive.update();
             }
 
+            //drive to bucket red
+            if (gamepad1.b) {
+
+                TrajectorySequence bucketTraj = drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                        .addDisplacementMarker(() -> lift.liftUpHigh())
+                        .lineToLinearHeading(bucketPoseRed)
+                        .waitSeconds(TIME)
+
+                        .addTemporalMarker(() -> grabber.grabberOpen())
+                        .waitSeconds(TIME)
+
+                        .UNSTABLE_addDisplacementMarkerOffset(2, () -> lift.liftDown())
+                        .addTemporalMarker(() -> lift.liftReset())
+                        .lineToLinearHeading(backUpRed)
+
+                        .build();
+
+                drive.followTrajectorySequence(bucketTraj);
+                PoseStorage.currentPose = drive.getPoseEstimate();
+                drive.update();
+            }
+
+
+            //reset blue
+            if (gamepad1.a) {
+                drive.setPoseEstimate(new Pose2d(58.25, 0, Math.toRadians(0)));
+                drive.update();
+            }
+
+            if (gamepad1.y) {
+                drive.setPoseEstimate(new Pose2d(-58.25, 0, Math.toRadians(90)));
+                drive.update();
+            }
             drive.update();
 
 

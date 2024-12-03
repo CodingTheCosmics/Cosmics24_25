@@ -76,6 +76,7 @@ public class RedAuto1_1 extends LinearOpMode {
                 //lift down and drive to field
                 .UNSTABLE_addDisplacementMarkerOffset(2,() -> lift.liftDown())
                 .lineToLinearHeading(fieldPose1)
+                .addTemporalMarker(() -> lift.liftReset())
 
 
                 .addTemporalMarker(() -> ostrich.ostrichDown())
@@ -108,6 +109,8 @@ public class RedAuto1_1 extends LinearOpMode {
                 //lift down and drive to field
                 .UNSTABLE_addDisplacementMarkerOffset(2, () -> lift.liftDown())
                 .lineToLinearHeading(fieldPose2)
+                .addTemporalMarker(() -> lift.liftReset())
+
 
                 .addTemporalMarker(() -> wrist.wristVertical())
                 .waitSeconds(TIME*0.5)
@@ -142,6 +145,8 @@ public class RedAuto1_1 extends LinearOpMode {
                 //drive to field
                 .UNSTABLE_addDisplacementMarkerOffset(2, () -> lift.liftDown())
                 .lineToLinearHeading(fieldPose3)
+                .addTemporalMarker(() -> lift.liftReset())
+
 
 
 
@@ -171,6 +176,8 @@ public class RedAuto1_1 extends LinearOpMode {
                 //lift down
                 .UNSTABLE_addDisplacementMarkerOffset(2, () -> lift.liftDown())
                 .lineToLinearHeading(parkPose)
+                .addTemporalMarker(() -> lift.liftReset())
+
 
                 //dropped sample into bucket (4)
 

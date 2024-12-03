@@ -66,8 +66,8 @@ public class BlueAuto2_1 extends LinearOpMode {
                 //drive to pickup sample
                 .addTemporalMarker(() -> grabber.grabberOpen())
                 .UNSTABLE_addDisplacementMarkerOffset(2, () -> lift.liftDown())
-                .addTemporalMarker(() -> lift.liftReset())
                 .lineToLinearHeading(fieldPose1)
+                .addTemporalMarker(() -> lift.liftReset())
 
                 //pick up sample
                 .addTemporalMarker(() -> ostrich.ostrichDown())
@@ -122,6 +122,7 @@ public class BlueAuto2_1 extends LinearOpMode {
                 //drive to hang specimen (2)
                 .addTemporalMarker(() -> lift.liftUpMedium())
                 .lineToLinearHeading(specimenPose2)
+                .addTemporalMarker(() -> lift.liftReset())
 
                 //drive to pickup sample
                 .addTemporalMarker(() -> grabber.grabberOpen())
@@ -139,14 +140,15 @@ public class BlueAuto2_1 extends LinearOpMode {
                 //drive to hang specimen (3)
                 .addTemporalMarker(() -> lift.liftUpMedium())
                 .lineToLinearHeading(specimenPose3)
+                .addTemporalMarker(() -> lift.liftReset())
 
 
 
                 //park
                 .addTemporalMarker(() -> grabber.grabberOpen())
                 .UNSTABLE_addDisplacementMarkerOffset(2, () -> lift.liftDown())
-                .addTemporalMarker(() -> lift.liftReset())
                 .lineToLinearHeading(parkPose)
+                .addTemporalMarker(() -> lift.liftReset())
 
 
 
