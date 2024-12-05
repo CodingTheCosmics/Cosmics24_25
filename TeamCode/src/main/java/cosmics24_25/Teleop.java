@@ -234,8 +234,9 @@ public class Teleop extends LinearOpMode {
                 drive.update();
             }
 
+            //reset red
             if (gamepad1.y) {
-                drive.setPoseEstimate(new Pose2d(-58.25, 0, Math.toRadians(90)));
+                drive.setPoseEstimate(new Pose2d(-58.25, 0, Math.toRadians(0)));
                 drive.update();
             }
             drive.update();
