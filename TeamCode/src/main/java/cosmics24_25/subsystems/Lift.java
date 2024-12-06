@@ -115,7 +115,10 @@ public class Lift {
 
     public void liftDown ()
     {
-        lift.setPower(0);
+        lift.setTargetPosition(0);
+        lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        lift.setPower(DEFAULT_POWER);
     }
 
 

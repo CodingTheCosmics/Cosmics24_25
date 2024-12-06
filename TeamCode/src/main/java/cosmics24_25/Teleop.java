@@ -100,12 +100,12 @@ public class Teleop extends LinearOpMode {
 
             //LIFT
             //LIFTY LIFT
-            if (gamepad2.y) {
+         //   if (gamepad2.y) {
 
-                lift.liftUpHigh();
-                lift.liftSleep(5000);
+         //       lift.liftUpHigh();
+         //       lift.liftSleep(5000);
 
-            }
+         //   }
 
             if (gamepad2.right_stick_button) {
 
@@ -113,16 +113,15 @@ public class Teleop extends LinearOpMode {
 
             }
 
-            if (gamepad2.a) {
+            //     if (gamepad2.a) {
 
-                grabber.grabberClose();
-                wrist.wristHorizontal();
-                lift.liftUpMedium();
-                lift.liftSleep(2000);
+        //        grabber.grabberClose();
+            //      wrist.wristHorizontal();
+       //         lift.liftUpMedium();
+             //   lift.liftSleep(2000);
+            //  grabber.grabberOpen();
 
-                grabber.grabberOpen();
-
-            }
+           // }
 
 
             lift.liftPower(gamepad2.left_stick_y); //|| -gamepad2Ex.getLeftY());
