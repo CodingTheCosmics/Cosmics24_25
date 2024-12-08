@@ -23,7 +23,7 @@ public class RedAuto1_1 extends LinearOpMode {
     //predefined poses/vectors
     private static final Pose2d START_POSE = new Pose2d(-30.75, -58.25, Math.toRadians(180));
 
-    private static final Vector2d BUCKET_VECTOR = new Vector2d(-58, -55);
+    private static final Vector2d BUCKET_VECTOR = new Vector2d(-58, -55.5);
 
     private static final Pose2d BUCKET_POSE = new Pose2d(-57, -55.5, Math.toRadians(-135));
 
