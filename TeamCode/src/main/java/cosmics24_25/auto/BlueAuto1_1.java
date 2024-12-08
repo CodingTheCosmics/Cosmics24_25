@@ -25,7 +25,7 @@ public class BlueAuto1_1 extends LinearOpMode {
 
     private static final Vector2d BUCKET_VECTOR = new Vector2d(58, 55.5);
 
-    private static final Pose2d BUCKET_POSE = new Pose2d(57, 55.5, Math.toRadians(45));
+    private static final Pose2d BUCKET_POSE = new Pose2d(56.5, 55.5, Math.toRadians(45));
 
     private static final Pose2d FIELD_POSE_1 = new Pose2d(50, 37, Math.toRadians(270));
     private static final Pose2d FIELD_POSE_2 = new Pose2d(42, 21.5, Math.toRadians(0));
