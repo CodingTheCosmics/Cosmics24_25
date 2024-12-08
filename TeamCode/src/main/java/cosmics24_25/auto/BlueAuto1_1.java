@@ -18,7 +18,7 @@ import cosmics24_25.subsystems.Wrist;
 public class BlueAuto1_1 extends LinearOpMode {
 
     private static final double TIME = 0.4;
-    private static final double OFFSET = 3.75;
+    private static final double OFFSET = 4;
 
     //predefined poses/vector
     private final Pose2d START_POSE = new Pose2d(30.75, 58.25, 0);
@@ -29,7 +29,7 @@ public class BlueAuto1_1 extends LinearOpMode {
 
     private static final Pose2d FIELD_POSE_1 = new Pose2d(50, 37, Math.toRadians(270));
     private static final Pose2d FIELD_POSE_2 = new Pose2d(42, 21.5, Math.toRadians(0));
-    private static final Pose2d FIELD_POSE_3 = new Pose2d(55, 23.25, Math.toRadians(0));
+    private static final Pose2d FIELD_POSE_3 = new Pose2d(53.5, 23.25, Math.toRadians(0));
 
     private static final Pose2d PARK_POSE = FIELD_POSE_3;
 
@@ -148,10 +148,14 @@ public class BlueAuto1_1 extends LinearOpMode {
                     .addTemporalMarker(() -> ostrich.ostrichDown())
                     .waitSeconds(TIME)
 
+                    .addTemporalMarker(() -> wrist.wristVertical())
+                    .waitSeconds(TIME/2)
+
                     .addTemporalMarker(() -> grabber.grabberClose())
                     .waitSeconds(TIME)
 
                     .addTemporalMarker(() -> ostrich.ostrichUp())
+                    .addTemporalMarker(() -> wrist.wristHorizontal())
 
 
                     //picked up new sample (4)

@@ -12,13 +12,13 @@ public class Ostrich {
 
 
     //ostrich move
-    public static final double OSTRICH_START = 0.15;
+    public static final double OSTRICH_START = 0.1;
 
     public static final double OSTRICH_UP = 0.2;
 
     public static final double OSTRICH_MID = 0.5;
 
-    public static final double OSTRICH_DOWN = 0.6;
+    public static final double OSTRICH_DOWN = 0.57;
 
     double currentPosition;
 
