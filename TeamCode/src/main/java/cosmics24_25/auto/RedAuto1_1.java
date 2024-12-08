@@ -17,19 +17,19 @@ import cosmics24_25.subsystems.Wrist;
 @Autonomous
 public class RedAuto1_1 extends LinearOpMode {
 
-    private static final double TIME = 0.5;
+    private static final double TIME = 0.4;
     private static final double OFFSET = 2.5;
 
     //predefined poses/vectors
     private static final Pose2d START_POSE = new Pose2d(-30.75, -58.25, Math.toRadians(180));
 
-    private static final Vector2d BUCKET_VECTOR = new Vector2d(-58, -55.5);
+    private static final Vector2d BUCKET_VECTOR = new Vector2d(-58, -55);
 
     private static final Pose2d BUCKET_POSE = new Pose2d(-57, -55.5, Math.toRadians(-135));
 
-    private static final Pose2d FIELD_POSE_1 = new Pose2d(-50, -38.25, Math.toRadians(90));
-    private static final Pose2d FIELD_POSE_2 = new Pose2d(-42, -22.25, Math.toRadians(180));
-    private static final Pose2d FIELD_POSE_3 = new Pose2d(-53, -22, Math.toRadians(180));
+    private static final Pose2d FIELD_POSE_1 = new Pose2d(-50, -37, Math.toRadians(90));
+    private static final Pose2d FIELD_POSE_2 = new Pose2d(-42, -21.5, Math.toRadians(180));
+    private static final Pose2d FIELD_POSE_3 = new Pose2d(-53, -23.25, Math.toRadians(180));
 
     private static final Pose2d PARK_POSE = FIELD_POSE_3;
 

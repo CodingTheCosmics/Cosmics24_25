@@ -124,7 +124,7 @@ public class Teleop extends LinearOpMode {
            // }
 
 
-            lift.liftPower(gamepad2.left_stick_y); //|| -gamepad2Ex.getLeftY());
+            lift.liftPower(-gamepad2.left_stick_y); //|| -gamepad2Ex.getLeftY());
 
 
 
