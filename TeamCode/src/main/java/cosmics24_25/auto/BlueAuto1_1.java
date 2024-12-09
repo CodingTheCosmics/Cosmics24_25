@@ -145,10 +145,13 @@ public class BlueAuto1_1 extends LinearOpMode {
                     .lineToLinearHeading(FIELD_POSE_3)
                     .waitSeconds(TIME/2)
 
-                    .addTemporalMarker(() -> ostrich.ostrichDown())
+                    .addTemporalMarker(() -> ostrich.ostrichMid())
                     .waitSeconds(TIME)
 
                     .addTemporalMarker(() -> wrist.wristVertical())
+                    .waitSeconds(TIME/2)
+
+                    .addTemporalMarker(() -> ostrich.ostrichDown())
                     .waitSeconds(TIME/2)
 
                     .addTemporalMarker(() -> grabber.grabberClose())

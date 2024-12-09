@@ -149,10 +149,13 @@ public class RedAuto1_1 extends LinearOpMode {
 
 
 
-                .addTemporalMarker(() -> ostrich.ostrichDown())
+                .addTemporalMarker(() -> ostrich.ostrichMid())
                 .waitSeconds(TIME)
 
                 .addTemporalMarker(() -> wrist.wristVertical())
+                .waitSeconds(TIME/2)
+
+                .addTemporalMarker(() -> ostrich.ostrichDown())
                 .waitSeconds(TIME/2)
 
                 .addTemporalMarker(() -> grabber.grabberClose())
