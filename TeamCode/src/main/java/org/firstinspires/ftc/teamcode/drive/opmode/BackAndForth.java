@@ -25,7 +25,7 @@ import cosmics24_25.subsystems.OdometryDrive;
  * This opmode is designed as a convenient, coarse tuning for the follower PID coefficients. It
  * is recommended that you use the FollowerPIDTuner opmode for further fine tuning.
  */
-@Disabled
+//@Disabled
 
 @Config
 @Autonomous(group = "drive")

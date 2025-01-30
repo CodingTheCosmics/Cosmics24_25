@@ -189,12 +189,12 @@ public class BlueAuto1_1 extends LinearOpMode {
                 wrist.wristHorizontal();
 
 
-            if (!isStopRequested())
-                    lift.liftTelemetry();
-                    telemetry.update();
+        if (!isStopRequested())
+            lift.liftTelemetry();
+            telemetry.update();
 
-                drive.followTrajectorySequence(trajSeq);
-                PoseStorage.currentPose = drive.getPoseEstimate();
+            drive.followTrajectorySequence(trajSeq);
+            PoseStorage.currentPose = drive.getPoseEstimate();
 
 
 

@@ -54,10 +54,10 @@ import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kV;
  */
 @Config
 public class OdometryDrive extends MecanumDrive {
-    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(9, 0, 1);
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(8, 0, 1);
+    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(1, 0, 10);
+    public static PIDCoefficients HEADING_PID = new PIDCoefficients(1, 0, 10);
 
-    public static double LATERAL_MULTIPLIER = 1;
+    public static double LATERAL_MULTIPLIER = 1.00597045;
 
     public static double VX_WEIGHT = 1;
     public static double VY_WEIGHT = 1;
@@ -94,8 +94,8 @@ public class OdometryDrive extends MecanumDrive {
         }
 
         // adjust the names of the following hardware devices to match your configuration
-        imu = hardwareMap.get(IMU.class, "imu");
-        /*IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+       /* imu = hardwareMap.get(IMU.class, "imu");
+          IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 DriveConstants.LOGO_FACING_DIR, DriveConstants.USB_FACING_DIR));
         imu.initialize(parameters); */
 
@@ -123,7 +123,7 @@ public class OdometryDrive extends MecanumDrive {
         }
 
         //reverse any motors using DcMotor.setDirection()
-      //  leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
+   //     leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
       //  rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
 
         List<Integer> lastTrackingEncPositions = new ArrayList<>();
