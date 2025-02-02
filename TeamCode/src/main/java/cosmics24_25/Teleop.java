@@ -2,28 +2,22 @@ package cosmics24_25;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
-import com.arcrobotics.ftclib.gamepad.GamepadEx;
-import com.arcrobotics.ftclib.gamepad.GamepadKeys;
-import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
-import org.firstinspires.ftc.teamcode.drive.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import cosmics24_25.subsystems.Drivetrain;
 import cosmics24_25.subsystems.Lift;
 import cosmics24_25.subsystems.Grabber;
 import cosmics24_25.subsystems.OdometryDrive;
 import cosmics24_25.subsystems.Ostrich;
 import cosmics24_25.subsystems.PoseStorage;
 import cosmics24_25.subsystems.Wrist;
+import cosmics24_25.subsystems.ColorsSensor;
 import cosmics24_25.subsystems.distanceSensor;
+
 
 
 @TeleOp
@@ -55,6 +49,9 @@ public class Teleop extends LinearOpMode {
 
         //init HOW FAR????
         distanceSensor how_far = new distanceSensor(hardwareMap, this);
+
+        //init colors!
+        ColorsSensor colors = new ColorsSensor(hardwareMap, this);
 
         //init new zoom zoom
         OdometryDrive drive = new OdometryDrive(hardwareMap);
@@ -241,6 +238,9 @@ public class Teleop extends LinearOpMode {
             drive.update();
 
 
+            if (gamepad1.dpad_up) {
+                colors.whatColor();
+            }
 
 
 
@@ -251,6 +251,7 @@ public class Teleop extends LinearOpMode {
                 ostrich.ostrichTelemetry();
                 lift.liftTelemetry();
                 how_far.howFarTelemetry();
+                colors.colorSensorTelemetry();
                 telemetry.addData("x", poseEstimate.getX());
                 telemetry.addData("y", poseEstimate.getY());
                 telemetry.addData("heading", poseEstimate.getHeading());

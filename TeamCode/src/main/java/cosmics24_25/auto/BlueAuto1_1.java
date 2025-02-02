@@ -12,6 +12,7 @@ import cosmics24_25.subsystems.Grabber;
 import cosmics24_25.subsystems.Ostrich;
 import cosmics24_25.subsystems.PoseStorage;
 import cosmics24_25.subsystems.Wrist;
+//import cosmics24_25.subsystems.colorSensor;
 
 
 @Autonomous
@@ -50,6 +51,8 @@ public class BlueAuto1_1 extends LinearOpMode {
 
             //init drivetrain
             OdometryDrive drive = new OdometryDrive(hardwareMap);
+
+          //  colorSensor colorSensor = new colorSensor(hardwareMap, this);
 
 
 
@@ -189,7 +192,7 @@ public class BlueAuto1_1 extends LinearOpMode {
                 wrist.wristHorizontal();
 
 
-        if (!isStopRequested())
+    if (!isStopRequested())
             lift.liftTelemetry();
             telemetry.update();
 
