@@ -52,7 +52,7 @@ public class test extends LinearOpMode {
         //init drivetrain
         OdometryDrive drive = new OdometryDrive(hardwareMap);
 
-        //  colorSensor colorSensor = new colorSensor(hardwareMap, this);
+        //colorSensor colorSensor = new colorSensor(hardwareMap, this);
 
 
 
@@ -82,6 +82,7 @@ public class test extends LinearOpMode {
 
         if (!isStopRequested())
             lift.liftTelemetry();
+
         telemetry.update();
 
         drive.followTrajectorySequence(trajSeq);

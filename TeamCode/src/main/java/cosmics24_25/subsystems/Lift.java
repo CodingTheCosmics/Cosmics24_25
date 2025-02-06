@@ -17,7 +17,7 @@ public class Lift {
 
 
     //default power for overrides
-    public static final float DEFAULT_POWER = 1f;
+    public static final float DEFAULT_POWER = -1f;
 
     public static final float MAX_EXTEND = 2000f;
 
@@ -45,7 +45,7 @@ public class Lift {
 
         lift = (DcMotorEx) hardwareMap.dcMotor.get("LIFT");
 
-        lift.setDirection(DcMotorSimple.Direction.REVERSE);
+      //  lift.setDirection(DcMotorSimple.Direction.REVERSE);
 
         lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         lift.setTargetPosition(0);

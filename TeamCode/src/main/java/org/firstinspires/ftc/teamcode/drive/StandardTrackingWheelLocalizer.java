@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.drive;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.opMode;
+
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
@@ -63,6 +65,7 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
         // ˆˆreverse any encoders using Encoder.setDirection(Encoder.Direction.REVERSE)
     }
 
+
     public static double encoderTicksToInches(double ticks) {
         return WHEEL_RADIUS * 2 * Math.PI * GEAR_RATIO * ticks / TICKS_PER_REV;
     }
@@ -103,5 +106,12 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
                 encoderTicksToInches(rightVel) * X_MULTIPLIER,
                 encoderTicksToInches(frontVel) * Y_MULTIPLIER
         );
+    }
+
+    public void driveTelemetry ()
+    {
+        opMode.telemetry.addData("left encoder", leftEncoder.getCurrentPosition());
+        opMode.telemetry.addData("right encoder", rightEncoder.getCurrentPosition());
+        opMode.telemetry.addData("middle encoder", frontEncoder.getCurrentPosition());
     }
 }

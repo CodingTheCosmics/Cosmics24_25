@@ -2,11 +2,21 @@ package cosmics24_25.auto;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
+import com.acmerobotics.roadrunner.trajectory.constraints.AngularVelocityConstraint;
+import com.acmerobotics.roadrunner.trajectory.constraints.MinVelocityConstraint;
+import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
+import com.acmerobotics.roadrunner.trajectory.constraints.TranslationalVelocityConstraint;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import cosmics24_25.subsystems.OdometryDrive;
+
+import org.firstinspires.ftc.teamcode.drive.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
+
+import java.sql.Array;
+import java.util.Arrays;
+
 import cosmics24_25.subsystems.Lift;
 import cosmics24_25.subsystems.Grabber;
 import cosmics24_25.subsystems.Ostrich;
@@ -19,20 +29,25 @@ import cosmics24_25.subsystems.Wrist;
 public class BlueAuto1_1 extends LinearOpMode {
 
     private static final double TIME = 0.4;
-    private static final double OFFSET = 4;
+    private static final double OFFSET = 3;
 
     //predefined poses/vector
     private final Pose2d START_POSE = new Pose2d(30.75, 58.25, 0);
 
-    private static final Vector2d BUCKET_VECTOR = new Vector2d(58, 55.5);
+    private static final Vector2d BUCKET_VECTOR = new Vector2d(55, 51);
 
-    private static final Pose2d BUCKET_POSE = new Pose2d(56.5, 55.5, Math.toRadians(45));
+    private static final Pose2d BUCKET_POSE = new Pose2d(55, 51, Math.toRadians(45));
 
-    private static final Pose2d FIELD_POSE_1 = new Pose2d(50, 37, Math.toRadians(270));
-    private static final Pose2d FIELD_POSE_2 = new Pose2d(42, 21.5, Math.toRadians(0));
-    private static final Pose2d FIELD_POSE_3 = new Pose2d(53.5, 23.25, Math.toRadians(0));
+    private static final Pose2d FIELD_POSE_1 = new Pose2d(52, 43, Math.toRadians(270));
+    private static final Pose2d FIELD_POSE_2 = new Pose2d(42, 22, Math.toRadians(0));
+    private static final Pose2d FIELD_POSE_3 = new Pose2d(51, 23, Math.toRadians(0));
 
     private static final Pose2d PARK_POSE = FIELD_POSE_3;
+
+    TrajectoryVelocityConstraint slowConstraint = new MinVelocityConstraint(Arrays.asList(
+            new TranslationalVelocityConstraint(15),
+            new AngularVelocityConstraint(1.5)
+    ));
 
 
         @Override
@@ -52,7 +67,11 @@ public class BlueAuto1_1 extends LinearOpMode {
             //init drivetrain
             OdometryDrive drive = new OdometryDrive(hardwareMap);
 
+           /* StandardTrackingWheelLocalizer encoders = new StandardTrackingWheelLocalizer(hardwareMap,
+                    PoseStorage.currentPose, Math.toRadians(90)); */
+
           //  colorSensor colorSensor = new colorSensor(hardwareMap, this);
+
 
 
 
@@ -66,6 +85,8 @@ public class BlueAuto1_1 extends LinearOpMode {
                     //lift and drive to bucket
 
                     .addDisplacementMarker(() -> lift.liftUpHigh())
+
+                    .setVelConstraint(slowConstraint)
                     .splineTo(BUCKET_VECTOR, Math.toRadians(45))
                     .waitSeconds(TIME)
 
@@ -78,6 +99,8 @@ public class BlueAuto1_1 extends LinearOpMode {
 
                     //lift down and drive to field
                     .UNSTABLE_addDisplacementMarkerOffset(OFFSET,() -> lift.liftDown())
+
+                   // .setVelConstraint(slowConstraint)
                     .lineToLinearHeading(FIELD_POSE_1)
                     .waitSeconds(TIME/2)
 
@@ -99,6 +122,7 @@ public class BlueAuto1_1 extends LinearOpMode {
                     .addTemporalMarker(() -> lift.liftUpHigh())
                     .waitSeconds(TIME*0.75)
 
+                   // .setVelConstraint(slowConstraint)
                     .lineToLinearHeading(BUCKET_POSE)
                     .waitSeconds(TIME)
 
@@ -111,6 +135,8 @@ public class BlueAuto1_1 extends LinearOpMode {
 
                     //lift down and drive to field
                     .UNSTABLE_addDisplacementMarkerOffset(OFFSET, () -> lift.liftDown())
+
+                  //  .setVelConstraint(slowConstraint)
                     .lineToLinearHeading(FIELD_POSE_2)
                     .waitSeconds(TIME/2)
 
@@ -132,6 +158,8 @@ public class BlueAuto1_1 extends LinearOpMode {
                     //drive to bucket
                     .addTemporalMarker(() -> lift.liftReset())
                     .addTemporalMarker(() -> lift.liftUpHigh())
+
+                   // .setVelConstraint(slowConstraint)
                     .lineToLinearHeading(BUCKET_POSE)
 
                     .waitSeconds(TIME)
@@ -145,6 +173,8 @@ public class BlueAuto1_1 extends LinearOpMode {
 
                     //drive to field
                     .UNSTABLE_addDisplacementMarkerOffset(OFFSET, () -> lift.liftDown())
+
+                   // .setVelConstraint(slowConstraint)
                     .lineToLinearHeading(FIELD_POSE_3)
                     .waitSeconds(TIME/2)
 
@@ -171,6 +201,7 @@ public class BlueAuto1_1 extends LinearOpMode {
                     .addTemporalMarker(() -> lift.liftReset())
                     .addTemporalMarker(() -> lift.liftUpHigh())
 
+                    //.setVelConstraint(slowConstraint)
                     .lineToLinearHeading(BUCKET_POSE)
                     .waitSeconds(TIME)
 
@@ -180,6 +211,8 @@ public class BlueAuto1_1 extends LinearOpMode {
                     //lift down
 
                     .UNSTABLE_addDisplacementMarkerOffset(OFFSET, () -> lift.liftDown())
+
+                   // .setVelConstraint(slowConstraint)
                     .lineToLinearHeading(PARK_POSE)
 
                     //dropped sample into bucket (4)
@@ -191,15 +224,15 @@ public class BlueAuto1_1 extends LinearOpMode {
                 ostrich.ostrichUp();
                 wrist.wristHorizontal();
 
+              //  encoders.driveTelemetry();
 
-    if (!isStopRequested())
-            lift.liftTelemetry();
+                if (!isStopRequested())
+                    lift.liftTelemetry();
             telemetry.update();
 
-            drive.followTrajectorySequence(trajSeq);
-            PoseStorage.currentPose = drive.getPoseEstimate();
 
-
+                drive.followTrajectorySequence(trajSeq);
+                PoseStorage.currentPose = drive.getPoseEstimate();
 
 
         }
