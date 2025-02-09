@@ -34,8 +34,8 @@ public class Ostrich {
         this.opMode = opMode;
 
         ostrich = hardwareMap.servo.get("ostrich");
-        ostrich.setPosition(OSTRICH_START);
-        currentPosition = OSTRICH_START;
+      //  ostrich.setPosition(OSTRICH_START);
+      //  currentPosition = OSTRICH_START;
 
 
     }

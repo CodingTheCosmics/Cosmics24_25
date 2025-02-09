@@ -23,9 +23,6 @@ import cosmics24_25.subsystems.distanceSensor;
 @TeleOp
 public class Teleop extends LinearOpMode {
 
-   // GamepadEx gamepad1Ex;
-  //  GamepadEx gamepad2Ex;
-
 
     public static final double TIME = 0.4;
     public static final float POWER = 1f;
@@ -60,6 +57,7 @@ public class Teleop extends LinearOpMode {
 
         drive.setPoseEstimate(PoseStorage.currentPose);
 
+
         Pose2d bucketPoseBlue = new Pose2d(54, 54.5, Math.toRadians(45));
         Pose2d bucketPoseRed = new Pose2d(-54, -54.5, Math.toRadians(-135));
         Pose2d backUpBlue = new Pose2d(51, 50.5, Math.toRadians(45));
@@ -88,54 +86,32 @@ public class Teleop extends LinearOpMode {
             //5 - Drivetrain
             //6 - Telemetry
 
-           // gamepad1Ex.readButtons();
-           // gamepad2Ex.readButtons();
-
 
 
             //LIFT
-            //LIFTY LIFT
-         //   if (gamepad2.y) {
-
-         //       lift.liftUpHigh();
-         //       lift.liftSleep(5000);
-
-         //   }
-
             if (gamepad2.right_stick_button) {
-
                 lift.liftReset();
-
             }
 
-            //     if (gamepad2.a) {
-
-        //        grabber.grabberClose();
-            //      wrist.wristHorizontal();
-       //         lift.liftUpMedium();
-             //   lift.liftSleep(2000);
-            //  grabber.grabberOpen();
-
-           // }
-
-
-            lift.liftPower(-gamepad2.left_stick_y); //|| -gamepad2Ex.getLeftY());
+            lift.liftPower(gamepad2.left_stick_y);
 
 
 
             //GRABBER
-            //GRAB CRAB
-            if (gamepad2.x) {
-                grabber.grabberClose();
-            }
+         //   if (gamepad2.x) {
+         //       grabber.grabberClose();
+         //   }
             if (gamepad2.b) {
                 grabber.grabberOpen();
             }
 
 
+            if (gamepad2.x && colors.yellow)
+            {
+                grabber.grabberClose();
+            }
 
             //WRIST
-            //WRISTY WRISTY WRISTY
             if (gamepad2.left_bumper) {
                 wrist.wristHorizontal();
             }
@@ -146,7 +122,6 @@ public class Teleop extends LinearOpMode {
 
 
             //OSTRICH
-            //*ostrich sound*
             if (gamepad2.dpad_up) {
                 ostrich.ostrichUp();
             }
@@ -159,9 +134,7 @@ public class Teleop extends LinearOpMode {
 
 
 
-
             //DRIVETRAIN
-
             Pose2d poseEstimate = drive.getPoseEstimate();
 
             Vector2d input = new Vector2d(
@@ -236,20 +209,16 @@ public class Teleop extends LinearOpMode {
             drive.update();
 
 
-            if (gamepad1.dpad_up) {
-                colors.whatColor();
-            }
-
-
+            //COLORS BABYY
+            colors.whatColor();
 
 
 
                 //TELEMETRY
-
                 ostrich.ostrichTelemetry();
                 lift.liftTelemetry();
                 how_far.howFarTelemetry();
-                colors.colorSensorTelemetry();
+              //  colors.whatColor();
                 telemetry.addData("x", poseEstimate.getX());
                 telemetry.addData("y", poseEstimate.getY());
                 telemetry.addData("heading", poseEstimate.getHeading());

@@ -31,17 +31,25 @@ public class ColorsSensor {
         colors = hardwareMap.get(com.qualcomm.robotcore.hardware.ColorSensor.class, "colors");
     }
 
+    public void colorLight () {
+
+    }
+
+
     public void whatColor () {
-         if (colors.blue() > colors.red()) {
+         if (colors.blue() > colors.green() && colors.green() > colors.red()) {
              blue = true;
+             opMode.telemetry.addLine("blue!");
          }
 
-         else if (colors.red() > colors.blue()) {
+         if (colors.red() > colors.green() && colors.green() > colors.blue()) {
              red = true;
+             opMode.telemetry.addLine("red!");
          }
 
-         else {
+         if (colors.green() > colors.blue() && colors.red() > colors.blue()){
             yellow = true;
+             opMode.telemetry.addLine("yellow!");
          }
     }
 
@@ -50,13 +58,6 @@ public class ColorsSensor {
 
 
 
-    public void colorSensorTelemetry()
-    {
-        opMode.telemetry.addData("blue!", blue = true);
-        opMode.telemetry.addData("red!", red = true);
-        opMode.telemetry.addData("yellow!", yellow = true);
-        opMode.telemetry.addData("light?", ((OpticalDistanceSensor) colors).getLightDetected());
-    }
 
 
 }

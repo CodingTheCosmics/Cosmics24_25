@@ -30,8 +30,8 @@ public class Wrist {
         this.opMode = opMode;
 
         wrist = hardwareMap.servo.get("wrist");
-        wrist.setPosition(WRIST_VERTICAL);
-        currentPosition = WRIST_VERTICAL;
+      //  wrist.setPosition(WRIST_VERTICAL);
+      //  currentPosition = WRIST_VERTICAL;
 
 
     }

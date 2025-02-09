@@ -1,5 +1,7 @@
 package cosmics24_25.auto;
 
+import static cosmics24_25.subsystems.Grabber.GRABBER_CLOSE;
+
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.constraints.AngularVelocityConstraint;
@@ -28,13 +30,13 @@ import cosmics24_25.subsystems.Wrist;
 @Autonomous
 public class BlueAuto1_1 extends LinearOpMode {
 
-    private static final double TIME = 0.4;
+    private static final double TIME = 0.5;
     private static final double OFFSET = 3;
 
     //predefined poses/vector
     private final Pose2d START_POSE = new Pose2d(30.75, 58.25, 0);
 
-    private static final Vector2d BUCKET_VECTOR = new Vector2d(55, 51);
+    private static final Vector2d BUCKET_VECTOR = new Vector2d(56, 50);
 
     private static final Pose2d BUCKET_POSE = new Pose2d(55, 51, Math.toRadians(45));
 
@@ -66,6 +68,10 @@ public class BlueAuto1_1 extends LinearOpMode {
 
             //init drivetrain
             OdometryDrive drive = new OdometryDrive(hardwareMap);
+
+            grabber.grabberClose();
+            ostrich.ostrichUp();
+            wrist.wristVertical();
 
            /* StandardTrackingWheelLocalizer encoders = new StandardTrackingWheelLocalizer(hardwareMap,
                     PoseStorage.currentPose, Math.toRadians(90)); */

@@ -28,8 +28,8 @@ public class Grabber {
 
         //defnitions and set position
         grabber = hardwareMap.servo.get("grabber");
-        grabber.setPosition(GRABBER_CLOSE);
-        currentPosition = GRABBER_CLOSE;
+      //  grabber.setPosition(GRABBER_CLOSE);
+      //  currentPosition = GRABBER_CLOSE;
 
 
     }
