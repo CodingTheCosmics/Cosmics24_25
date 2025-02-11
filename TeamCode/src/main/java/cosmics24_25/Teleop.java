@@ -45,7 +45,7 @@ public class Teleop extends LinearOpMode {
         Ostrich ostrich = new Ostrich(hardwareMap, this);
 
         //init HOW FAR????
-        distanceSensor how_far = new distanceSensor(hardwareMap, this);
+      //  distanceSensor how_far = new distanceSensor(hardwareMap, this);
 
         //init colors!
         ColorsSensor colors = new ColorsSensor(hardwareMap, this);
@@ -98,18 +98,16 @@ public class Teleop extends LinearOpMode {
 
 
             //GRABBER
-         //   if (gamepad2.x) {
-         //       grabber.grabberClose();
-         //   }
             if (gamepad2.b) {
+                grabber.grabberClose();
+            }
+
+            if (gamepad2.x) {
                 grabber.grabberOpen();
             }
 
 
-            if (gamepad2.x && colors.yellow)
-            {
-                grabber.grabberClose();
-            }
+
 
             //WRIST
             if (gamepad2.left_bumper) {
@@ -133,6 +131,35 @@ public class Teleop extends LinearOpMode {
             }
 
 
+            //automation of what's above
+            if (gamepad2.y) {
+                ostrich.ostrichUp();
+                sleep(500);
+
+                grabber.grabberOpen();
+                sleep(500);
+            }
+
+            if (gamepad2.a) {
+                ostrich.ostrichMid();
+                sleep(500);
+
+                grabber.grabberOpen();
+                sleep(500);
+            }
+
+            if (ostrich.ostrichIsMid() && colors.seesYellow()) {
+
+                ostrich.ostrichDown();
+                sleep(500);
+
+                grabber.grabberClose();
+                sleep(500);
+
+                ostrich.ostrichUp();
+            }
+
+
 
             //DRIVETRAIN
             Pose2d poseEstimate = drive.getPoseEstimate();
@@ -150,75 +177,29 @@ public class Teleop extends LinearOpMode {
                     )
             );
 
-            //drive to bucket blue
-            if (gamepad1.x) {
-
-                TrajectorySequence bucketTraj = drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .addDisplacementMarker(() -> lift.liftUpHigh())
-                        .lineToLinearHeading(bucketPoseBlue)
-                        .waitSeconds(TIME)
-
-                        .addTemporalMarker(() -> grabber.grabberOpen())
-                        .waitSeconds(TIME)
-
-                        .UNSTABLE_addDisplacementMarkerOffset(2, () -> lift.liftDown())
-                        .addTemporalMarker(() -> lift.liftReset())
-                        .lineToLinearHeading(backUpBlue)
-
-                        .build();
-
-                drive.followTrajectorySequence(bucketTraj);
-                PoseStorage.currentPose = drive.getPoseEstimate();
-                drive.update();
-            }
-
-            //drive to bucket red
-            if (gamepad1.b) {
-
-                TrajectorySequence bucketTraj = drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .addDisplacementMarker(() -> lift.liftUpHigh())
-                        .lineToLinearHeading(bucketPoseRed)
-                        .waitSeconds(TIME)
-
-                        .addTemporalMarker(() -> grabber.grabberOpen())
-                        .waitSeconds(TIME)
-
-                        .UNSTABLE_addDisplacementMarkerOffset(2, () -> lift.liftDown())
-                        .addTemporalMarker(() -> lift.liftReset())
-                        .lineToLinearHeading(backUpRed)
-
-                        .build();
-
-                drive.followTrajectorySequence(bucketTraj);
-                PoseStorage.currentPose = drive.getPoseEstimate();
-                drive.update();
-            }
-
 
             //reset blue
-            if (gamepad1.a) {
+            if (gamepad1.x) {
                 drive.setPoseEstimate(new Pose2d(58.25, 0, Math.toRadians(0)));
                 drive.update();
             }
 
             //reset red
-            if (gamepad1.y) {
+            if (gamepad1.b) {
                 drive.setPoseEstimate(new Pose2d(-58.25, 0, Math.toRadians(0)));
                 drive.update();
             }
             drive.update();
 
 
-            //COLORS BABYY
-            colors.whatColor();
-
 
 
                 //TELEMETRY
                 ostrich.ostrichTelemetry();
                 lift.liftTelemetry();
-                how_far.howFarTelemetry();
-              //  colors.whatColor();
+              //  how_far.howFarTelemetry();
+                colors.whatColor();
+                colors.colorsTelemetry();
                 telemetry.addData("x", poseEstimate.getX());
                 telemetry.addData("y", poseEstimate.getY());
                 telemetry.addData("heading", poseEstimate.getHeading());

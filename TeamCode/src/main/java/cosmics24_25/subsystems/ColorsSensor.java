@@ -17,7 +17,6 @@ public class ColorsSensor {
     public boolean yellow;
 
 
-
     OpMode opMode;
 
 
@@ -31,23 +30,35 @@ public class ColorsSensor {
         colors = hardwareMap.get(com.qualcomm.robotcore.hardware.ColorSensor.class, "colors");
     }
 
-    public void colorLight () {
 
+
+    //different colors
+    public boolean seesYellow() {
+        return colors.green() > colors.red() && colors.green() > 100;
+    }
+
+    public boolean seesBlue () {
+        return colors.blue() > colors.green() && colors.blue() > colors.red();
+    }
+
+    public boolean seesRed () {
+        return colors.red() > colors.green() && colors.red() > colors.blue();
     }
 
 
+    //telemetry
     public void whatColor () {
-         if (colors.blue() > colors.green() && colors.green() > colors.red()) {
+         if (colors.blue() > colors.green() && colors.blue() > colors.red()) {
              blue = true;
              opMode.telemetry.addLine("blue!");
          }
 
-         if (colors.red() > colors.green() && colors.green() > colors.blue()) {
+         if (colors.red() > colors.green() && colors.red() > colors.blue()) {
              red = true;
              opMode.telemetry.addLine("red!");
          }
 
-         if (colors.green() > colors.blue() && colors.red() > colors.blue()){
+         if (colors.green() > colors.red() && colors.green() > 100){
             yellow = true;
              opMode.telemetry.addLine("yellow!");
          }
@@ -55,7 +66,11 @@ public class ColorsSensor {
 
 
 
-
+    public void colorsTelemetry () {
+        opMode.telemetry.addData("green value", colors.green());
+        opMode.telemetry.addData("red value", colors.red());
+        opMode.telemetry.addData("blue value", colors.blue());
+    }
 
 
 

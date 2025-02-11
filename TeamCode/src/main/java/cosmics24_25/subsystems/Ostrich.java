@@ -60,6 +60,9 @@ public class Ostrich {
         currentPosition = OSTRICH_MID;
     }
 
+    public boolean ostrichIsMid () {
+        return ostrich.getPosition() == OSTRICH_MID;
+    }
 
     //ostrich move
     public void ostrichMoveDown ()
