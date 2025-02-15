@@ -64,6 +64,9 @@ public class RedAuto1_1 extends LinearOpMode {
         OdometryDrive drive = new OdometryDrive(hardwareMap);
 
 
+        grabber.grabberClose();
+        ostrich.ostrichUp();
+        wrist.wristVertical();
 
 
 
