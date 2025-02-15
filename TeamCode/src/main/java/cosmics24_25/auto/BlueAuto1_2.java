@@ -14,7 +14,7 @@ import cosmics24_25.subsystems.Wrist;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 @Autonomous
-//@Disabled
+@Disabled
 public class BlueAuto1_2 extends LinearOpMode {
 
     public static final double TIME = 0.5;

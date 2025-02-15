@@ -53,8 +53,9 @@ public class BlueAuto2_2 extends LinearOpMode {
         ostrich.ostrichUp();
         wrist.wristHorizontal();
 
-        if (!isStopRequested())
+        if (!isStopRequested()) {
             drive.followTrajectorySequence(trajSeq);
             PoseStorage.currentPose = drive.getPoseEstimate();
+        }
     }
 }
