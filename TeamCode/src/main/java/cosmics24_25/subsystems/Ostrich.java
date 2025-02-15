@@ -40,6 +40,11 @@ public class Ostrich {
 
     }
 
+    public void ostrichStart ()
+    {
+        ostrich.setPosition(OSTRICH_START);
+        currentPosition = OSTRICH_START;
+    }
 
     // I HEART OSTRICHES
     public void ostrichUp ()

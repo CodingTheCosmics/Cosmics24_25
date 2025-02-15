@@ -40,7 +40,7 @@ public class BlueAuto1_1 extends LinearOpMode {
 
     private static final Pose2d BUCKET_POSE = new Pose2d(55, 51, Math.toRadians(45));
 
-    private static final Pose2d FIELD_POSE_1 = new Pose2d(52, 43, Math.toRadians(270));
+    private static final Pose2d FIELD_POSE_1 = new Pose2d(53, 43, Math.toRadians(270));
     private static final Pose2d FIELD_POSE_2 = new Pose2d(42, 22, Math.toRadians(0));
     private static final Pose2d FIELD_POSE_3 = new Pose2d(51, 23, Math.toRadians(0));
 
@@ -70,7 +70,7 @@ public class BlueAuto1_1 extends LinearOpMode {
             OdometryDrive drive = new OdometryDrive(hardwareMap);
 
             grabber.grabberClose();
-            ostrich.ostrichUp();
+            ostrich.ostrichStart();
             wrist.wristVertical();
 
            /* StandardTrackingWheelLocalizer encoders = new StandardTrackingWheelLocalizer(hardwareMap,
