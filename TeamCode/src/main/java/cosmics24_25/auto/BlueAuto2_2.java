@@ -57,5 +57,6 @@ public class BlueAuto2_2 extends LinearOpMode {
             drive.followTrajectorySequence(trajSeq);
             PoseStorage.currentPose = drive.getPoseEstimate();
         }
+
     }
 }

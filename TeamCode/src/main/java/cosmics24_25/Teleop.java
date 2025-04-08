@@ -2,11 +2,13 @@ package cosmics24_25;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
+import com.acmerobotics.roadrunner.localization.Localizer;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
+import org.firstinspires.ftc.teamcode.drive.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 import cosmics24_25.subsystems.Lift;
@@ -178,7 +180,45 @@ public class Teleop extends LinearOpMode {
             );
 
 
-            //reset blue
+            //drive to da bloo spot
+            if (gamepad1.x) {
+
+                TrajectorySequence bucketTraj = drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                        .addDisplacementMarker(() -> lift.liftUpHigh())
+                        .lineToLinearHeading(bucketPoseBlue)
+                        .waitSeconds(TIME)
+
+                        .addTemporalMarker(() -> grabber.grabberOpen())
+                        .waitSeconds(TIME)
+
+                        .build();
+
+                drive.followTrajectorySequence(bucketTraj);
+                PoseStorage.currentPose = drive.getPoseEstimate();
+            }
+
+
+            //drive to da red sot
+            if (gamepad1.b) {
+
+                TrajectorySequence bucketTraj = drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                        .addDisplacementMarker(() -> lift.liftUpHigh())
+                        .lineToLinearHeading(bucketPoseBlue)
+                        .waitSeconds(TIME)
+
+                        .addTemporalMarker(() -> grabber.grabberOpen())
+                        .waitSeconds(TIME)
+
+                        .build();
+
+                drive.followTrajectorySequence(bucketTraj);
+                PoseStorage.currentPose = drive.getPoseEstimate();
+            }
+
+            drive.update();
+
+
+          /*  //reset blue
             if (gamepad1.x) {
                 drive.setPoseEstimate(new Pose2d(58.25, 0, Math.toRadians(0)));
                 drive.update();
@@ -189,7 +229,7 @@ public class Teleop extends LinearOpMode {
                 drive.setPoseEstimate(new Pose2d(-58.25, 0, Math.toRadians(0)));
                 drive.update();
             }
-            drive.update();
+            drive.update(); */
 
 
 

@@ -45,7 +45,7 @@ public class Lift {
 
         lift = (DcMotorEx) hardwareMap.dcMotor.get("LIFT");
 
-      //  lift.setDirection(DcMotorSimple.Direction.REVERSE);
+        lift.setDirection(DcMotorSimple.Direction.REVERSE);
 
         lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         lift.setTargetPosition(0);
