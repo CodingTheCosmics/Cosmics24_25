@@ -36,13 +36,13 @@ public class BlueAuto1_1 extends LinearOpMode {
     //predefined poses/vector
     private final Pose2d START_POSE = new Pose2d(30.75, 58.25, 0);
 
-    private static final Vector2d BUCKET_VECTOR = new Vector2d(56, 50);
+    private static final Vector2d BUCKET_VECTOR = new Vector2d(57, 51);
 
-    private static final Pose2d BUCKET_POSE = new Pose2d(55, 51, Math.toRadians(45));
+    private static final Pose2d BUCKET_POSE = new Pose2d(56, 51, Math.toRadians(45));
 
     private static final Pose2d FIELD_POSE_1 = new Pose2d(53, 43, Math.toRadians(270));
-    private static final Pose2d FIELD_POSE_2 = new Pose2d(42, 22, Math.toRadians(0));
-    private static final Pose2d FIELD_POSE_3 = new Pose2d(51, 23, Math.toRadians(0));
+    private static final Pose2d FIELD_POSE_2 = new Pose2d(42, 23, Math.toRadians(0));
+    private static final Pose2d FIELD_POSE_3 = new Pose2d(51, 22, Math.toRadians(0));
 
     private static final Pose2d PARK_POSE = FIELD_POSE_3;
 
@@ -68,6 +68,8 @@ public class BlueAuto1_1 extends LinearOpMode {
 
             //init drivetrain
             OdometryDrive drive = new OdometryDrive(hardwareMap);
+            drive.setPoseEstimate(PoseStorage.currentPose);
+            Pose2d poseEstimate = drive.getPoseEstimate();
 
             grabber.grabberClose();
             ostrich.ostrichStart();
@@ -76,7 +78,7 @@ public class BlueAuto1_1 extends LinearOpMode {
            /* StandardTrackingWheelLocalizer encoders = new StandardTrackingWheelLocalizer(hardwareMap,
                     PoseStorage.currentPose, Math.toRadians(90)); */
 
-          //  colorSensor colorSensor = new colorSensor(hardwareMap, this);
+           // colorSensor colorSensor = new colorSensor(hardwareMap, this);
 
 
 
@@ -234,6 +236,10 @@ public class BlueAuto1_1 extends LinearOpMode {
 
                 if (!isStopRequested())
                     lift.liftTelemetry();
+                    telemetry.addData("x", poseEstimate.getX());
+                    telemetry.addData("y", poseEstimate.getY());
+                    telemetry.addData("heading", poseEstimate.getHeading());
+
             telemetry.update();
 
 

@@ -136,29 +136,31 @@ public class Teleop extends LinearOpMode {
             //automation of what's above
             if (gamepad2.y) {
                 ostrich.ostrichUp();
-                sleep(500);
+                //sleep(500);
 
                 grabber.grabberOpen();
-                sleep(500);
+                //slee(500);
             }
 
             if (gamepad2.a) {
                 ostrich.ostrichMid();
-                sleep(500);
+                //sleep(500);
 
                 grabber.grabberOpen();
-                sleep(500);
+                //sleep(500);
             }
 
             if (ostrich.ostrichIsMid() && colors.seesYellow()) {
+                colors.colorsTelemetry();
 
                 ostrich.ostrichDown();
-                sleep(500);
+                //sleep(500);
 
                 grabber.grabberClose();
-                sleep(500);
+                //sleep(500);
 
                 ostrich.ostrichUp();
+
             }
 
 
