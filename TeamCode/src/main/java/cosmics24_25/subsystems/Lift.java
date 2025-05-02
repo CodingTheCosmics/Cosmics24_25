@@ -17,7 +17,7 @@ public class Lift {
 
 
     //default power for overrides
-    public static final float DEFAULT_POWER = -1f;
+    public static final float DEFAULT_POWER = 1000;
 
     public static final float MAX_EXTEND = 2000f;
 
@@ -79,29 +79,29 @@ public class Lift {
         lift.setTargetPosition(targetPosition);
         lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        lift.setPower(power);
+        lift.setVelocity(power);
     }
 
 
     public void liftUpHigh ()
     {
 
-        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+       // lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         lift.setTargetPosition(3100);
         lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        lift.setPower(DEFAULT_POWER);
+        lift.setVelocity(DEFAULT_POWER);
 
 
     }
 
     public void liftUpMedium ()
     {
-        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        lift.setTargetPosition(1750);
+      //  lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lift.setTargetPosition(1100);
         lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        lift.setPower(DEFAULT_POWER);
+        lift.setVelocity(DEFAULT_POWER);
 
     }
 
@@ -119,7 +119,7 @@ public class Lift {
         lift.setTargetPosition(0);
         lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        lift.setPower(DEFAULT_POWER);
+        lift.setVelocity(DEFAULT_POWER);
     }
 
 

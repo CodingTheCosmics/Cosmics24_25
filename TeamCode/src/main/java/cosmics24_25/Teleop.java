@@ -97,16 +97,24 @@ public class Teleop extends LinearOpMode {
 
             lift.liftPower(gamepad2.left_stick_y);
 
+            if (gamepad2.b) {
+                lift.liftUpHigh();
+            }
+            if (gamepad2.x) {
+                lift.liftUpMedium();
+            }
+
+
 
 
             //GRABBER
-            if (gamepad2.b) {
-                grabber.grabberClose();
-            }
+           // if (gamepad2.b) {
+          //      grabber.grabberClose();
+         //   }
 
-            if (gamepad2.x) {
-                grabber.grabberOpen();
-            }
+          //  if (gamepad2.x) {
+         //       grabber.grabberOpen();
+         //   }
 
 
 
