@@ -2,13 +2,11 @@ package cosmics24_25;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
-import com.acmerobotics.roadrunner.localization.Localizer;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
-import org.firstinspires.ftc.teamcode.drive.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 import cosmics24_25.subsystems.Lift;
@@ -18,8 +16,6 @@ import cosmics24_25.subsystems.Ostrich;
 import cosmics24_25.subsystems.PoseStorage;
 import cosmics24_25.subsystems.Wrist;
 import cosmics24_25.subsystems.ColorsSensor;
-import cosmics24_25.subsystems.distanceSensor;
-
 
 
 @TeleOp

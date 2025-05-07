@@ -7,7 +7,7 @@ import com.noahbres.meepmeep.MeepMeep;
 import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
 import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
-public class MeepMeepTesting {
+public class MeepMeepTesting {/*
     public static void main(String[] args) {
         MeepMeep meepMeep = new MeepMeep(800);
 
@@ -36,7 +36,7 @@ public class MeepMeepTesting {
 
          Pose2d PARK_POSE = FIELD_POSE_3;
 
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(57, 51, Math.toRadians(45))
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(57, 51, Math.toRadians(45));
                 //cycle to buckets
 
                 //lift and drive to bucket
@@ -119,7 +119,7 @@ public class MeepMeepTesting {
                 // .setVelConstraint(slowConstraint)
                 .lineToLinearHeading(PARK_POSE)
 
-                //dropped sample into bucket (4) */
+                //dropped sample into bucket (4)
 
 
                // .build());
@@ -129,6 +129,6 @@ public class MeepMeepTesting {
                 .setDarkMode(false)
                 .setBackgroundAlpha(0.95f)
                 .addEntity(myBot)
-                .start()
-    }
+                .start();
+    }*/
 }
