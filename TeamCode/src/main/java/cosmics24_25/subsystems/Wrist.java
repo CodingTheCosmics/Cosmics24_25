@@ -16,6 +16,8 @@ public class Wrist {
     public static final double WRIST_HORIZONTAL = 1;
 
 
+
+
     double currentPosition;
 
 
@@ -32,6 +34,8 @@ public class Wrist {
         wrist = hardwareMap.servo.get("wrist");
       //  wrist.setPosition(WRIST_VERTICAL);
       //  currentPosition = WRIST_VERTICAL;
+
+        //wrist.setDirection(Servo.Direction.REVERSE);
 
 
     }
